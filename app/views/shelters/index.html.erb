@@ -1,0 +1,14 @@
+<%= link_to 'Add Shelter', '/shelters/new' %>
+<br><br>
+<table class="table">
+  <th>Shelter:</th>
+  <th>Update?</th>
+  <th>Delete?</th>
+  <% @shelters.each do |shelter| %>
+    <tr>
+      <td><%= link_to "#{shelter.name}", "/shelters/#{shelter.id}" %></td>
+      <td><%= link_to "Edit", "shelters/#{shelter.id}/edit" %></td>
+      <td><%= link_to "Delete", "shelters/#{shelter.id}", method: :delete %></td>
+    </tr>
+  <% end %>
+</table>

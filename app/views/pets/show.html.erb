@@ -1,0 +1,20 @@
+<div class="grid">
+  <div class="grid_item">
+    <img src="<%= @pet.image %>" class="grid_img">
+  </div>
+  <div class="grid_item">
+    <h2><%= @pet.name %></h2>
+    <%= @pet.breed %>
+    <br><br>
+    <%= @pet.description %><br>
+    <%= @pet.age_approx %><br>
+    <%= @pet.sex %><br>
+    <%= @adopt_status %><br>
+    <%= link_to "#{@adopt_link}", "#{@adopt_route}", method: :patch %><br>
+    <%= link_to "#{@pet.shelter.name}", "/shelters/#{@pet.shelter_id}" %>
+    <br>
+    <hr>
+    <%= link_to 'Update', "/pets/#{@pet.id}/edit", :class => 'tab-space' %>
+    <%= link_to 'Delete', "/pets/#{@pet.id}/", method: :delete, :class => 'tab-space' %>
+  </div>
+</div>

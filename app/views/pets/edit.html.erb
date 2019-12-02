@@ -1,0 +1,24 @@
+<h4>Edit Pet</h4>
+<br><br>
+<%= form_tag "/pets/#{@pet.id}", method: :patch do %>
+  <%= label_tag :image %>
+  <%= text_field_tag :image, value="#{@pet.image}" %>
+  <br>
+  <%= label_tag :name %>
+  <%= text_field_tag :name, value="#{@pet.name}" %>
+  <br>
+  <%= label_tag :breed %>
+  <%= text_field_tag :breed, value="#{@pet.breed}" %>
+  <br>
+  <%= label_tag :description %>
+  <%= text_field_tag :description, value="#{@pet.description}" %>
+  <br>
+  <%= label_tag :age_approx %>
+  <%= number_field_tag :age_approx, value="#{@pet.age_approx}" %>
+  <br>
+  <%= label_tag :sex %>
+  <%= text_field_tag :sex, value="#{@pet.sex}" %>
+  <br>
+  <br>
+  <%= submit_tag 'Save' %>
+<% end %>

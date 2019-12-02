@@ -1,0 +1,8 @@
+<h2><%= @shelter.name %></h2>
+<br><br>
+<p><%= @shelter.address %></p>
+<p><%= @shelter.city %></p>
+<p><%= @shelter.state %></p>
+<p><%= @shelter.zip %></p>
+<br>
+<%= link_to 'Pets at this shelter', "/shelters/#{@shelter.id}/pets" %>

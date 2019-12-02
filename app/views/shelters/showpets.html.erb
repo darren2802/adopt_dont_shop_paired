@@ -1,0 +1,22 @@
+
+<h2><%= @shelter_name %></h2>
+<br>
+<%= link_to 'Add Adoptable Pet to this Shelter', "/shelters/#{@shelter_id}/pets/new" %>
+<br><br>
+<h6>Number of pets at this shelter: <%= @pet_count %></h6>
+<div class="grid">
+  <% @shelter_pets.each do |pet| %>
+    <div class="grid_item">
+      <h4><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h4>
+      <img src="<%= pet.image %>" class="grid_img"><br>
+      <%= pet.breed %><br>
+      <%= pet.sex %><br>
+      Approximate age: <%= pet.age_approx %><br>
+      Adoptable: <%= pet.adoptable %>
+      <br>
+      <hr>
+      <%= link_to 'Update', "/pets/#{pet.id}/edit", :class => 'tab-space' %>
+      <%= link_to 'Delete', "/pets/#{pet.id}/", method: :delete, :class => 'tab-space' %>
+    </div>
+  <% end %>
+</div>
