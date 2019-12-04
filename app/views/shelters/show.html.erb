@@ -6,3 +6,15 @@
 <p><%= @shelter.zip %></p>
 <br>
 <%= link_to 'Pets at this shelter', "/shelters/#{@shelter.id}/pets" %>
+<br><br><br>
+<h4>Reviews</h4>
+<hr>
+<%= @shelter.reviews.each do |review| %>
+  <section id="review-<%= review.id %>">
+    <h6><%= review.title %></h6>
+    <p><%= review.rating %></p>
+    <p><%= review.content %></p>
+    <img src="<%= review.image %>">
+  </section>
+  <hr>
+<% end %>
