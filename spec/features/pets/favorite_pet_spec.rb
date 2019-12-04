@@ -15,23 +15,36 @@ RSpec.describe 'favorite Pet', type: :feature do
                         breed: 'Border Collie',
                         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                         shelter_id: @shelter_1.id)
-    @fav_pet_1 = Favorite.create
-    @fav_pet_2 = Favorite.create
-    @fav_pet_3 = Favorite.create
+
+      @pet_2 = Pet.create( name: 'Costello',
+                        image: 'https://adopt-dont-shop.s3-us-west-1.amazonaws.com/images/african_hunting_dog_29.jpg',
+                        age_approx: 10,
+                        sex: 'male',
+                        shelter_id: @shelter_1.id,
+                        breed: 'German Shepherd',
+                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
+
+    Favorite.create(pet_id: @pet_1.id)
+    Favorite.create(pet_id: @pet_2.id)
+
   end
   it 'see favorite indicator in navigation bar' do
     visit("/shelters")
-    expect(page).to have_content("Favorites count: 3")
+    expect(page).to have_content("Favorites count: 2")
 
   end
+  # it 'see a button or link to favorite that pet'
+  #   visit()
+
 end
 
 
 
 
-#User Story 8, Favorite Indicator
-
-#As a visitor
-#I see a favorite indicator in my navigation bar
-#The favorite indicator shows a count of pets in my favorites list
-#I can see this favorite indicator from any page in the application
+# As a visitor
+# When I visit a pet's show page
+# I see a button or link to favorite that pet
+# When I click the button or link
+# I'm taken back to that pet's show page
+# I see a flash message indicating that the pet has been added to my favorites list
+# The favorite indicator in the nav bar has incremented
