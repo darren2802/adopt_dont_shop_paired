@@ -36,12 +36,12 @@ RSpec.describe 'favorite Pet', type: :feature do
 
   it 'see a button or link to favorite that pet' do
     visit("/pets/#{@pet_1.id}")
+
     expect(page).to have_link('Favorite This Pet')
-    click_on ('Favorite This Pet')
 
     click_link 'Favorite This Pet'
 
-    expect(current_path).to eq('/pets')
+    expect(current_path).to eq("/pets/#{@pet_1.id}")
     expect(page).to have_content("#{@pet_1.name} has been added to Favorites")
   end
 end
