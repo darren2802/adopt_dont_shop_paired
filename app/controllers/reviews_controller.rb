@@ -32,6 +32,14 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def destroy
+    review = Review.find(params[:id])
+    shelter_id = review.shelter_id
+    review.destroy
+
+    redirect_to "/shelters/#{shelter_id}"
+  end
+
   private
     def review_params
       params.permit(:title, :rating, :content, :image)
