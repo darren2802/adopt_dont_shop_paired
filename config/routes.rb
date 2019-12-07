@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   delete '/pets/:id', to: 'pets#destroy'
   patch '/pets/:id/pending', to: 'pets#topending'
   patch '/pets/:id/adoptable', to: 'pets#toadoptable'
-  get '/favorites/:pet_id', to: 'favorites#favoritedpet'
+  get '/favorites/:pet_id', to: 'favorites#add_favorite'
+  delete '/favorites/:pet_id', to: 'favorites#destroy'
   get '/favorites', to: 'favorites#index'
 end

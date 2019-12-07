@@ -18,6 +18,22 @@ class PetsController < ApplicationController
       @adopt_route = "/pets/#{@pet.id}/adoptable"
     end
     @adopt_status
+    # @favorite_link = ''
+    # @favorite_route = ''
+    # @favorite_verb = ''
+    @favorited = false
+    if favorite.contents.has_key?(params[:id])
+      @favorited = true
+      # @favorite_link = 'Remove pet From Favorites'
+      # @favorite_route = "/favorites/#{@pet.id}"
+      # @favorite_verb = "method: :delete"
+    else
+      @favorited = false
+      # @favorite_link = 'Favorite This Pet'
+      # @favorite_route ="/favorites/#{@pet.id}"
+      # @favorite_verb = "method: :get"
+    end
+
   end
 
   def new
