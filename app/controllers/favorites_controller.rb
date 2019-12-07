@@ -10,18 +10,25 @@ class FavoritesController < ApplicationController
     @pet_favorites
   end
 
-   def favoritedpet
+   def add_favorite
      pet_name = Pet.find(params[:pet_id]).name
      pet_id_str = params[:pet_id].to_s
 
      @favorite = Favorite.new(session[:favorite])
-
      @favorite.add_pet(pet_id_str)
-
      session[:favorite] = @favorite.contents
 
-
      flash[:notice] = "#{pet_name} has been added to Favorites"
+     redirect_to "/pets/#{params[:pet_id]}"
+   end
+
+   def destroy
+     pet_name = Pet.find(params[:pet_id]).name
+     pet_id_str = params[:pet_id].to_s
+     @favorite = Favorite.new(session[:favorite])
+     @favorite.delete_pet(pet_id_str)
+
+     flash[:notice] = "#{pet_name} has been removed from Favorites"
      redirect_to "/pets/#{params[:pet_id]}"
    end
 end

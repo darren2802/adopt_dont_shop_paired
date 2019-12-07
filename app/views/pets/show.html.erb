@@ -17,6 +17,10 @@
     <%= link_to 'Update', "/pets/#{@pet.id}/edit", :class => 'tab-space' %>
     <%= link_to 'Delete', "/pets/#{@pet.id}/", method: :delete, :class => 'tab-space' %>
     <br>
-    <%= link_to 'Favorite This Pet', "/favorites/#{@pet.id}" %>
+    <% if @favorited %>
+      <%= link_to "Remove pet From Favorites", "/favorites/#{@pet.id}", method: :delete %>
+    <% else %>
+      <%= link_to "Favorite This Pet", "/favorites/#{@pet.id}" %>
+    <% end %>
   </div>
 </div>

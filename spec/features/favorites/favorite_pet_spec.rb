@@ -27,7 +27,7 @@ RSpec.describe 'favorite Pet', type: :feature do
   end
   it 'see favorite indicator in navigation bar' do
     visit("/shelters")
-    expect(page).to have_content("Favorites count: 0")
+    expect(page).to have_content("Favorited Pets: 0")
 
   end
 
@@ -38,11 +38,24 @@ RSpec.describe 'favorite Pet', type: :feature do
 
     expect(current_path).to eq("/pets/#{@pet_1.id}")
     expect(page).to have_content("#{@pet_1.name} has been added to Favorites")
-    expect(page).to have_content("Favorites count: 1")
+    expect(page).to have_content("Favorited Pets: 1")
 
   end
+
+  # it 'favorite indicator in navigation bar directs to favorites index page' do
+  #   visit("/pets/#{@pet_1.id}")
+  #
+  #   click_link 'Favorite This Pet'
+  #   binding.pry
+  #   click_link "Favorited Pets: 3"
+  #   binding.pry
+  #   expect(current_path).to eq("/favorites")
+  # end
 end
 
+# As a visitor
+# When I click on the favorite indicator in the nav bar
+# I am taken to the favorites index page
 
 # As a visitor
 # When I visit a pet's show page
