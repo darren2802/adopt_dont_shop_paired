@@ -24,29 +24,24 @@ RSpec.describe 'favorite Pet', type: :feature do
                         breed: 'German Shepherd',
                         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
 
-    Favorite.create(pet_id: @pet_1.id)
-    Favorite.create(pet_id: @pet_2.id)
-
   end
   it 'see favorite indicator in navigation bar' do
     visit("/shelters")
-    expect(page).to have_content("Favorites count: 2")
+    expect(page).to have_content("Favorites count: 0")
 
   end
 
   it 'see a button or link to favorite that pet' do
     visit("/pets/#{@pet_1.id}")
 
-    expect(page).to have_link('Favorite This Pet')
-
     click_link 'Favorite This Pet'
 
     expect(current_path).to eq("/pets/#{@pet_1.id}")
     expect(page).to have_content("#{@pet_1.name} has been added to Favorites")
+    expect(page).to have_content("Favorites count: 1")
+
   end
 end
-
-
 
 
 # As a visitor
