@@ -29,7 +29,7 @@ RSpec.describe 'Favorite Index Page' do
     visit "/pets/#{pet_2.id}"
     click_link 'Favorite This Pet'
 
-    expect(page).to have_content('Favorites count: 2')
+    expect(page).to have_content('Favorited Pets: 2')
 
     visit '/favorites'
 
