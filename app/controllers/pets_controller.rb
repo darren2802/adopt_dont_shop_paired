@@ -1,6 +1,6 @@
 class PetsController < ApplicationController
   def index
-    @pets = Pet.all.order(adoptable: :desc, breed: :asc, name: :asc)
+    @pets = Pet.all.order(adoptable: :desc, name: :asc)
   end
 
   def show

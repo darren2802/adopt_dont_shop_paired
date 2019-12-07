@@ -19,6 +19,7 @@
     <img src="<%= review.image %>">
     <br><br>
     <%= link_to 'Edit Review', "/reviews/#{review.id}/edit" %>
+    <%= link_to 'Delete Review', "/reviews/#{review.id}", method: :delete, :class => 'tab-space' %>
     <hr>
   </section>
 <% end %>
