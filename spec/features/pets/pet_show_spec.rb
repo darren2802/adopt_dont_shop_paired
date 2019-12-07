@@ -19,7 +19,7 @@ RSpec.describe 'Show Pet', type: :feature do
   end
 
   it 'can see the individual pet for an id with detailed information' do
-    visit "pets/#{@pet_1.id}"
+    visit "pets/#{@pet_1.id}" 
 
     expect(page).to have_content(@pet_1.name)
     expect(page).to have_content(@pet_1.breed)
