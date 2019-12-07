@@ -1,5 +1,14 @@
 class FavoritesController < ApplicationController
+  def index
+    @pet_favorites = Hash.new()
 
+    favorite.contents.each_key do |key|
+      @pet_favorites[key] = Hash.new()
+      @pet_favorites[key]['name'] = Pet.find(key).name
+      @pet_favorites[key]['image'] = Pet.find(key).image
+    end
+    @pet_favorites
+  end
 
    def favoritedpet
      pet_name = Pet.find(params[:pet_id]).name

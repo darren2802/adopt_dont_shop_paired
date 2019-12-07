@@ -1,0 +1,9 @@
+<h2>Favorites</h2>
+<hr>
+<% @pet_favorites.each_key do |key| %>
+  <section id="favorite-<%= key %>">
+    <h4><%= link_to @pet_favorites[key]['name'], "/pets/#{key}" %></h4>
+    <img src="<%= @pet_favorites[key]['image'] %>" class="grid_img">
+  </section>
+  <hr>
+<% end %>
