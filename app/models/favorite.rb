@@ -22,4 +22,8 @@ class Favorite
   def count_of(pet_id)
     @contents[pet_id.to_s].to_i
   end
+
+  def destroy_all
+    @contents.clear
+  end
 end
