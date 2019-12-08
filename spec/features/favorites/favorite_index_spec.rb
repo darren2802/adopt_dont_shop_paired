@@ -44,8 +44,110 @@ RSpec.describe 'Favorite Index Page' do
       expect(page).to have_css("img[src *= 'african_hunting_dog_29.jpg']")
     end
   end
+
+  it 'can remove a favorite from the favorites page by clicking a delete link next to the favorite' do
+    shelter_1 = Shelter.create( name: 'Dog Haven',
+                                address: '123 Curtis Street',
+                                city: 'Denver',
+                                state: 'Colorado',
+                                zip: 80202)
+
+    pet_1 = Pet.create( name: 'Elvis',
+                        image: 'https://adopt-dont-shop.s3-us-west-1.amazonaws.com/images/border_collie_92.jpg',
+                        age_approx: 7,
+                        sex: 'male',
+                        breed: 'Border Collie',
+                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                        shelter_id: shelter_1.id)
+
+    pet_2 = Pet.create( name: 'Costello',
+                        image: 'https://adopt-dont-shop.s3-us-west-1.amazonaws.com/images/african_hunting_dog_29.jpg',
+                        age_approx: 10,
+                        sex: 'male',
+                        shelter_id: shelter_1.id,
+                        breed: 'German Shepherd',
+                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
+
+    visit "/pets/#{pet_1.id}"
+    click_link 'Favorite This Pet'
+    visit "/pets/#{pet_2.id}"
+    click_link 'Favorite This Pet'
+    visit '/favorites'
+
+    within("#favorite-#{pet_2.id}") do
+      click_link 'Remove pet From Favorites'
+      expect(current_path).to eq('/favorites')
+      # expect(page).to have_content("Favorited Pets: 1")
+    end
+  end
+
+  it 'can see text on the Favorites index page saying no favorites if no pets have been favorited' do
+    visit '/favorites'
+
+    expect(page).to have_content('No pets have been favorited...')
+  end
+
+  it 'can remove all favorited pets from the Favorites Page' do
+    shelter_1 = Shelter.create( name: 'Dog Haven',
+                                address: '123 Curtis Street',
+                                city: 'Denver',
+                                state: 'Colorado',
+                                zip: 80202)
+
+    pet_1 = Pet.create( name: 'Elvis',
+                        image: 'https://adopt-dont-shop.s3-us-west-1.amazonaws.com/images/border_collie_92.jpg',
+                        age_approx: 7,
+                        sex: 'male',
+                        breed: 'Border Collie',
+                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                        shelter_id: shelter_1.id)
+
+    pet_2 = Pet.create( name: 'Costello',
+                        image: 'https://adopt-dont-shop.s3-us-west-1.amazonaws.com/images/african_hunting_dog_29.jpg',
+                        age_approx: 10,
+                        sex: 'male',
+                        shelter_id: shelter_1.id,
+                        breed: 'German Shepherd',
+                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
+
+    visit '/favorites'
+
+    click_link 'Delete All Favorites'
+
+    expect(page).to_not have_css("#favorite-#{pet_1.id}")
+    expect(page).to_not have_css("#favorite-#{pet_2.id}")
+
+  end
 end
 
+# User Story 15, Remove all Favorite from Favorites Page
+#
+# As a visitor
+# When I have added pets to my favorites list
+# And I visit my favorites page ("/favorites")
+# I see a link to remove all favorited pets
+# When I click that link
+# I'm redirected back to the favorites page
+# I see the text saying that I have no favorited pets
+# And the favorites indicator returns to 0
+#
+# # User Story 14, No Favorites Page
+# #
+# # As a visitor
+# # When I have not added any pets to my favorites list
+# # And I visit my favorites page ("/favorites")
+# # I see text saying that I have no favorited pets
+#
+# # User Story 13, Remove a Favorite from Favorites Page
+# #
+# # As a visitor
+# # When I have added pets to my favorites list
+# # And I visit my favorites page ("/favorites")
+# # Next to each pet, I see a button or link to remove that pet from my favorites
+# # When I click on that button or link to remove a favorite
+# # A delete request is sent to "/favorites/:pet_id"
+# # And I'm redirected back to the favorites page where I no longer see that pet listed
+# And I also see that the favorites indicator has decremented by 1
 
 # User Story 10, Favorite Index Page
 #

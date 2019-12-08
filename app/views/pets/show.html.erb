@@ -16,7 +16,7 @@
     <hr>
     <%= link_to 'Update', "/pets/#{@pet.id}/edit", :class => 'tab-space' %>
     <%= link_to 'Delete', "/pets/#{@pet.id}/", method: :delete, :class => 'tab-space' %>
-    <br>
+    <br><br>
     <% if @favorited %>
       <%= link_to "Remove pet From Favorites", "/favorites/#{@pet.id}", method: :delete %>
     <% else %>
