@@ -29,6 +29,8 @@ BE Mod 2 Week 1 Solo Project
 * Write migrations to create tables and relationships between tables
 * Describe ORMs and their advantages and use cases
 
+![Schema:](https://adopt-dont-shop.s3-us-west-1.amazonaws.com/db_schema/Screen+Shot+2019-12-08+at+12.28.47+PM.png)
+
 ### Testing and Debugging
 
 * Write feature tests utilizing:
