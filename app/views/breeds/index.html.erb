@@ -2,6 +2,6 @@
 <table class="table">
   <tr><h2>Breeds</h2></tr>
   <% @breeds_pluralized.each do |breed| %>
-    <tr><td><%= breed %></td></tr>
+    <tr><td><%= link_to breed, "/breeds/#{breed.gsub(' ','_')}" %></td></tr>
   <% end %>
 </table>

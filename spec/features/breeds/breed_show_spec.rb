@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'Breeds Index' do
-  it 'can see a list of all breeds at /breeds' do
+RSpec.describe 'Breeds Show page' do
+  it 'can click a breed at /breeds and be taken to a show page displaying all pets for that breed' do
     shelter_1 = Shelter.create( name: 'Dog Haven',
                                 address: '123 Curtis Street',
                                 city: 'Denver',
@@ -25,9 +25,15 @@ RSpec.describe 'Breeds Index' do
                         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
 
     visit '/breeds'
-    expect(current_path).to eq('/breeds')
+    click_link 'Border Collie'
 
-    expect(page).to have_content('Border Collie')
-    expect(page).to have_content('German Shepherd')
+    expect(page).to have_content(pet_1.name)
+    expect(page).to have_content(pet_1.breed)
+    expect(page).to have_content(pet_1.description)
+    expect(page).to have_css("img[src *= 'border_collie_92.jpg']")
+    expect(page).to have_content(pet_1.age_approx)
+    expect(page).to have_content(pet_1.sex)
+    expect(page).to have_content('Adoptable')
+    expect(page).to have_content(shelter_1.name)
   end
 end
