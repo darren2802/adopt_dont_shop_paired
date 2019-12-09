@@ -25,10 +25,10 @@ RSpec.describe 'Breeds Show page' do
                         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
 
     visit '/breeds'
-    click_link 'Border Collie'
+    click_link 'Border Collies'
+    expect(current_path).to eq('/breeds/border_collies')
 
     expect(page).to have_content(pet_1.name)
-    expect(page).to have_content(pet_1.breed)
     expect(page).to have_content(pet_1.description)
     expect(page).to have_css("img[src *= 'border_collie_92.jpg']")
     expect(page).to have_content(pet_1.age_approx)
