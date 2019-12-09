@@ -1,0 +1,7 @@
+<br>
+<table class="table">
+  <tr><h2>Breeds</h2></tr>
+  <% @breeds_pluralized.each do |breed| %>
+    <tr><td><%= link_to breed, "/breeds/#{breed.gsub(' ','_').downcase}" %></td></tr>
+  <% end %>
+</table>
