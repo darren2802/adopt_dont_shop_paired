@@ -115,7 +115,14 @@ RSpec.describe 'Applying for a pet' do
     expect(current_path).to eq('/applications')
   end
 
+
 end
+
+# As a visitor
+# After one or more applications have been created
+# When I visit the favorites index page
+# I see a section on the page that has a list of all of the pets that have at least one application on them
+# Each pet's name is a link to their show page
 
 # As a visitor
 # When I apply for a pet and fail to fill out any of the following:
