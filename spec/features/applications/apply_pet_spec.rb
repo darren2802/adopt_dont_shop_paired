@@ -81,9 +81,11 @@ RSpec.describe 'Applying for a pet' do
 
       expect(page).to have_content('Thank you for applying to adopt')
 
-      expect(page).to_not have_content(@pet_1.name)
-      expect(page).to_not have_content(@pet_2.name)
-      expect(page).to have_content(@pet_3.name)
+      within("#pets_favorited") do
+        expect(page).to_not have_content(@pet_1.name)
+        expect(page).to_not have_content(@pet_2.name)
+        expect(page).to have_content(@pet_3.name)
+      end
 
   end
 

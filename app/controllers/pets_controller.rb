@@ -1,6 +1,6 @@
 class PetsController < ApplicationController
   def index
-    @pets = Pet.all.order(adoptable: :desc, name: :asc)
+    @pets = Pet.order('RANDOM()').limit(100)
   end
 
   def show

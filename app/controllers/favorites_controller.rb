@@ -8,12 +8,13 @@ class FavoritesController < ApplicationController
       @pet_favorites[key]['image'] = Pet.find(key).image
     end
     @pet_favorites
+
     pet_ids = PetApplication.all.distinct.pluck(:pet_id)
-    @pets_favorited = Hash.new()
+    @pets_applied_for = Hash.new()
     pet_ids.each do |pet_id|
-      @pets_favorited[pet_id] = Pet.find(pet_id).name
+      @pets_applied_for[pet_id] = Pet.find(pet_id).name
     end
-    @pets_favorited
+    @pets_applied_for
   end
 
    def add_favorite
