@@ -4,13 +4,12 @@
   </div>
   <div class="grid_item">
     <h2><%= @pet.name %></h2>
-    <%= @pet.breed %>
+    <%= @pet.breed %><br>
+    <%= link_to "#{@pet.shelter.name}", "/shelters/#{@pet.shelter_id}" %>
     <br><br>
     <%= @pet.description %><br>
-    <%= @pet.age_approx %><br>
-    <%= @pet.sex %>
-    <%= link_to "#{@pet.shelter.name}", "/shelters/#{@pet.shelter_id}" %>
-    <br>
+    Age: <%= @pet.age_approx %><br>
+    <%= @pet.sex.titleize %><br>
     <hr>
     <%= link_to 'Update', "/pets/#{@pet.id}/edit", :class => 'tab-space' %>
     <%= link_to 'Delete', "/pets/#{@pet.id}/", method: :delete, :class => 'tab-space' %>
@@ -21,6 +20,10 @@
       <%= link_to "Favorite This Pet", "/favorites/#{@pet.id}" %>
     <% end %>
     <br>
-    <%= link_to 'Applications For This Pet', "/pets/#{@pet.id}/applications" %>
+    <%= link_to 'Applications For This Pet', "/pets/#{@pet.id}/applications" %><br>
+    <% if @pet.application_approved %>
+      <i><%= "Application Pending" %></i>
+      <i><%= "On Hold For: #{@reserved_for}" %></i>
+    <% end %>
   </div>
 </div>

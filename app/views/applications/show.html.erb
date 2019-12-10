@@ -37,7 +37,7 @@
 <table class="table">
   <th>Name</th><th>Approve / Revoke</th>
   <% @pets.each do |pet| %>
-    <tr id="application-<%= pet.id %>">
+    <tr id="pet-<%= pet.id %>">
       <td>
         <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
       </td>

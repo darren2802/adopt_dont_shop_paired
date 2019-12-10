@@ -13,6 +13,10 @@ class PetsController < ApplicationController
       @favorited = false
     end
 
+    @reserved_for = PetApplication.select('applications.name')
+                                  .joins(:application)
+                                  .where('pet_applications.pet_id = ?',params[:id])
+                                  .pluck(:name)[0]
   end
 
   def new

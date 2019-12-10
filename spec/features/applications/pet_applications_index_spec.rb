@@ -92,3 +92,20 @@ RSpec.describe 'Pet Applications Index Page' do
     expect(page).to have_content('This pet has no applications for adoption')
   end
 end
+
+
+# User Story 20, Pet Applications Index Page
+#
+# As a visitor
+# When I visit a pets show page
+# I see a link to view all applications for this pet
+# When I click that link
+# I can see a list of all the names of applicants for this pet
+# Each applicant's name is a link to their application show page
+
+
+# User Story 21, Pet Applications Index Page When No Applications
+#
+# As a visitor
+# When I visit a pet applications index page for a pet that has no applications on them
+# I see a message saying that there are no applications for this pet yet
