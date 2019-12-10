@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'Pet Applications Index Page' do
-  it 'can show the details of an individual application when visiting /applications/:id' do
+RSpec.describe 'Approving An Application' do
+  it 'can approve applications for specific pets on an application show page and then redirects to the pet show page where status changes to pending' do
     shelter_1 = Shelter.create( name: 'Dog Haven',
                                 address: '123 Curtis Street',
                                 city: 'Denver',
@@ -46,7 +46,7 @@ RSpec.describe 'Pet Applications Index Page' do
 
     page.check("checkbox-#{pet_1.id}")
     page.check("checkbox-#{pet_2.id}")
-    fill_in 'Name', with: 'Danny'
+    fill_in 'Name', with: 'Danny Smith'
     fill_in 'Address', with: '123 Abc Street'
     fill_in 'City', with: 'Denver'
     fill_in 'State', with: 'Colorado'
@@ -59,13 +59,26 @@ RSpec.describe 'Pet Applications Index Page' do
 
     visit "/applications/#{app.id}"
 
-    expect(page).to have_content(app.name)
-    expect(page).to have_content(app.address)
-    expect(page).to have_content(app.city)
-    expect(page).to have_content(app.state)
-    expect(page).to have_content(app.zip)
-    expect(page).to have_content(app.phone)
-    expect(page).to have_content(app.motivation)
+    within("#pet-#{pet_2.id}") do
+      click_link 'Approve'
+    end
+
+    expect(current_path).to eq("/pets/#{pet_2.id}")
+    expect(page).to have_content('Application Pending')
+    expect(page).to have_content("On Hold For: #{app.name}")
 
   end
 end
+
+
+# User Story 22, Approving an Application
+#
+# As a visitor
+# When I visit an application's show page
+# For every pet that the application is for, I see a link to approve the
+# application for that specific pet
+# When I click on a link to approve the application for one particular pet
+# I'm taken back to that pet's show page
+# And I see that the pets status has changed to 'pending'
+# And I see text on the page that says who this pet is on hold for (Ex:
+# "On hold for John Smith", given John Smith is the name on the application that was just accepted)
