@@ -5,19 +5,7 @@ class PetsController < ApplicationController
 
   def show
     @pet = Pet.find(params[:id])
-    @adopt_status = ''
-    @adopt_link = ''
-    @adopt_route = ''
-    if @pet.adoptable == true
-      @adopt_status = 'Adoptable'
-      @adopt_link = 'Change to Adoption Pending'
-      @adopt_route = "/pets/#{@pet.id}/pending"
-    else
-      @adopt_status = 'Pending adoption'
-      @adopt_link = 'Change to Adoptable'
-      @adopt_route = "/pets/#{@pet.id}/adoptable"
-    end
-    @adopt_status
+
     @favorited = false
     if favorite.contents.has_key?(params[:id])
       @favorited = true
@@ -33,7 +21,6 @@ class PetsController < ApplicationController
 
   def create
     modified_params = pet_params
-    modified_params[:adoptable] = true
     shelter = Shelter.find(modified_params[:shelter_id])
     pet = shelter.pets.create(modified_params)
     redirect_to "/shelters/#{shelter.id}/pets"
@@ -57,20 +44,13 @@ class PetsController < ApplicationController
     redirect_to '/pets'
   end
 
-  def topending
+  def approve_application
+    modified_params = pet_params
+    modified_params[:application_approved] = true
     pet = Pet.find(params[:id])
-    pet.adoptable = false
-    pet.save
+    pet.update(modified_params)
 
-    redirect_to '/pets'
-  end
-
-  def toadoptable
-    pet = Pet.find(params[:id])
-    pet.adoptable = true
-    pet.save
-
-    redirect_to '/pets'
+    redirect_to "/pets/#{params[:id]}"
   end
 
   private

@@ -39,23 +39,16 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    @pets = PetApplication.select('Pets.id, Pets.name, Pets.application_approved')
+                        .joins(:pet)
+                        .where('pet_applications.application_id = ?', params[:id])
   end
 
   def pet_index
     @apps = PetApplication.select('Applications.id, Applications.name')
                             .joins(:application)
                             .where('pet_applications.pet_id = ?', params[:id])
-
     flash[:notice] = 'This pet has no applications for adoption' if @apps.empty?
-  end
-
-  def approve
-    modified_params = application_params
-    modified_params[:approved] = true
-    application = Application.find(params[:id])
-    application.update(modified_params)
-
-    redirect_to "/applications/#{params[:id]}"
   end
 
   private

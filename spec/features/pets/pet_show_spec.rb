@@ -14,12 +14,11 @@ RSpec.describe 'Show Pet', type: :feature do
                         image: 'https://adopt-dont-shop.s3-us-west-1.amazonaws.com/images/border_collie_92.jpg',
                         age_approx: 7,
                         sex: 'male',
-                        adoptable: true,
                         shelter_id: @shelter_1.id)
   end
 
   it 'can see the individual pet for an id with detailed information' do
-    visit "pets/#{@pet_1.id}" 
+    visit "pets/#{@pet_1.id}"
 
     expect(page).to have_content(@pet_1.name)
     expect(page).to have_content(@pet_1.breed)
@@ -27,7 +26,6 @@ RSpec.describe 'Show Pet', type: :feature do
     expect(page).to have_css("img[src *= 'border_collie_92.jpg']")
     expect(page).to have_content(@pet_1.age_approx)
     expect(page).to have_content(@pet_1.sex)
-    expect(page).to have_content('Adoptable')
     expect(page).to have_content(@shelter_1.name)
   end
 end

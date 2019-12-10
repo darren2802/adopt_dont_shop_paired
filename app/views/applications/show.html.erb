@@ -1,11 +1,6 @@
+<br>
 <h4>Application <%= @application.id %></h4>
 <br>
-<% if @application.approved %>
-  <%= link_to 'Revoke This Application', "/applications/#{@application.id}/revoke" %>
-<% else %>
-  <%= link_to 'Approve This Application', "/applications/#{@application.id}/approve" %>
-<% end %>
-<br><br>
 <table class="table">
   <tr>
     <td>Name:</td>
@@ -35,4 +30,24 @@
     <td>Motivation:</td>
     <td><%= @application.motivation %></td>
   </tr>
+</table>
+<br>
+<h4>Pets Under This Application</h4>
+<br>
+<table class="table">
+  <th>Name</th><th>Approve / Revoke</th>
+  <% @pets.each do |pet| %>
+    <tr id="application-<%= pet.id %>">
+      <td>
+        <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+      </td>
+      <td>
+        <% if pet.application_approved %>
+          <%= link_to 'Revoke', "/applications/#{pet.id}/revoke" %>
+        <% else %>
+          <%= link_to 'Approve', "/applications/#{pet.id}/approve" %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
 </table>

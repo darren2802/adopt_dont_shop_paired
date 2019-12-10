@@ -59,8 +59,13 @@ RSpec.describe 'Pet Applications Index Page' do
 
     visit "/applications/#{app.id}"
 
-    click_link 'Approve This Application'
-    expect(page).to have_link('Revoke This Application')
+    expect(page).to have_content(app.name)
+    expect(page).to have_content(app.address)
+    expect(page).to have_content(app.city)
+    expect(page).to have_content(app.state)
+    expect(page).to have_content(app.zip)
+    expect(page).to have_content(app.phone)
+    expect(page).to have_content(app.motivation)
 
   end
 end

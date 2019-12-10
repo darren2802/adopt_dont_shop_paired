@@ -8,9 +8,7 @@
     <br><br>
     <%= @pet.description %><br>
     <%= @pet.age_approx %><br>
-    <%= @pet.sex %><br>
-    <%= @adopt_status %><br>
-    <%= link_to "#{@adopt_link}", "#{@adopt_route}", method: :patch %><br>
+    <%= @pet.sex %>
     <%= link_to "#{@pet.shelter.name}", "/shelters/#{@pet.shelter_id}" %>
     <br>
     <hr>

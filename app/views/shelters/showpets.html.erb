@@ -11,8 +11,7 @@
       <img src="<%= pet.image %>" class="grid_img"><br>
       <%= pet.breed %><br>
       <%= pet.sex %><br>
-      Approximate age: <%= pet.age_approx %><br>
-      Adoptable: <%= pet.adoptable %>
+      Approximate age: <%= pet.age_approx %>
       <br>
       <hr>
       <%= link_to 'Update', "/pets/#{pet.id}/edit", :class => 'tab-space' %>
