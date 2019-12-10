@@ -42,9 +42,11 @@ class ApplicationsController < ApplicationController
   end
 
   def pet_index
-    @apps = apps = PetApplication.select('Applications.id, Applications.name')
-                      .joins(:application)
-                      .where('pet_applications.pet_id = ?', params[:id])
+    @apps = PetApplication.select('Applications.id, Applications.name')
+                            .joins(:application)
+                            .where('pet_applications.pet_id = ?', params[:id])
+
+    flash[:notice] = 'This pet has no applications for adoption' if @apps.empty?
   end
 
   private
