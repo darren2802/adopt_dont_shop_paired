@@ -22,5 +22,7 @@
     <% else %>
       <%= link_to "Favorite This Pet", "/favorites/#{@pet.id}" %>
     <% end %>
+    <br>
+    <%= link_to 'Applications For This Pet', "/pets/#{@pet.id}/applications" %>
   </div>
 </div>

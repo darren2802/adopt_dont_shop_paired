@@ -7,7 +7,7 @@ class ApplicationsController < ApplicationController
     pets_applied_for = []
     params.each do |key,value|
       if key[0..8] == 'checkbox-'
-        pets_applied_for << key[9..11]
+        pets_applied_for << key[9..-1]
       end
     end
 
@@ -37,6 +37,15 @@ class ApplicationsController < ApplicationController
     pet_favorites
   end
 
+  def show
+    @application = Application.find(params[:id])
+  end
+
+  def pet_index
+    @apps = apps = PetApplication.select('Applications.id, Applications.name')
+                      .joins(:application)
+                      .where('pet_applications.pet_id = ?', params[:id])
+  end
 
   private
     def application_params

@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   delete '/pets/:id', to: 'pets#destroy'
   patch '/pets/:id/pending', to: 'pets#topending'
   patch '/pets/:id/adoptable', to: 'pets#toadoptable'
+  get '/pets/:id/applications', to: 'applications#pet_index'
   get '/favorites/application', to: 'applications#new'
   get '/favorites/:pet_id', to: 'favorites#add_favorite'
   delete '/favorites/all', to: 'favorites#destroy_all'
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
   get '/favorites', to: 'favorites#index'
   delete '/favorites/:pet_id/index', to: 'favorites#destroy_from_index'
   post '/applications', to: 'applications#create'
+  get '/applications/:id', to: 'applications#show'
   get '/breeds', to: 'breeds#index'
   get '/breeds/:breed_name', to: 'breeds#show'
 end
