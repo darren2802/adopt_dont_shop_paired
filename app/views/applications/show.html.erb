@@ -1,5 +1,11 @@
 <h4>Application <%= @application.id %></h4>
 <br>
+<% if @application.approved %>
+  <%= link_to 'Revoke This Application', "/applications/#{@application.id}/revoke" %>
+<% else %>
+  <%= link_to 'Approve This Application', "/applications/#{@application.id}/approve" %>
+<% end %>
+<br><br>
 <table class="table">
   <tr>
     <td>Name:</td>

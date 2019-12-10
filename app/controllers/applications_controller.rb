@@ -49,9 +49,18 @@ class ApplicationsController < ApplicationController
     flash[:notice] = 'This pet has no applications for adoption' if @apps.empty?
   end
 
+  def approve
+    modified_params = application_params
+    modified_params[:approved] = true
+    application = Application.find(params[:id])
+    application.update(modified_params)
+
+    redirect_to "/applications/#{params[:id]}"
+  end
+
   private
     def application_params
-      params.permit(:name, :address, :city, :state, :zip, :phone, :motivation)
+      params.permit(:name, :address, :city, :state, :zip, :phone, :motivation, :approved)
     end
 
 end
