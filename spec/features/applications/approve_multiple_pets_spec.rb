@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Approving An Application' do
+RSpec.describe 'Approve An Applications for Multiple Pets' do
   it 'can approve applications for specific pets on an application show page and then redirects to the pet show page where status changes to pending' do
     shelter_1 = Shelter.create( name: 'Dog Haven',
                                 address: '123 Curtis Street',
@@ -59,6 +59,16 @@ RSpec.describe 'Approving An Application' do
 
     visit "/applications/#{app.id}"
 
+    within("#pet-#{pet_1.id}") do
+      click_link 'Approve'
+    end
+
+    expect(current_path).to eq("/pets/#{pet_1.id}")
+    expect(page).to have_content('Application Pending')
+    expect(page).to have_content("On Hold For: #{app.name}")
+
+    visit "/applications/#{app.id}"
+
     within("#pet-#{pet_2.id}") do
       click_link 'Approve'
     end
@@ -67,18 +77,21 @@ RSpec.describe 'Approving An Application' do
     expect(page).to have_content('Application Pending')
     expect(page).to have_content("On Hold For: #{app.name}")
 
+    visit "/applications/#{app.id}"
+
+    within("#pet-#{pet_1.id}") do
+      expect(page).to have_link('Revoke')
+    end
+
+    within("#pet-#{pet_2.id}") do
+      expect(page).to have_link('Revoke')
+    end
   end
 end
 
-
-# User Story 22, Approving an Application
+# User Story 23, Users can get approved to adopt more than one pet
 #
 # As a visitor
-# When I visit an application's show page
-# For every pet that the application is for, I see a link to approve the
-# application for that specific pet
-# When I click on a link to approve the application for one particular pet
-# I'm taken back to that pet's show page
-# And I see that the pets status has changed to 'pending'
-# And I see text on the page that says who this pet is on hold for (Ex:
-# "On hold for John Smith", given John Smith is the name on the application that was just accepted)
+# When an application is made for more than one pet
+# When I visit that applications show page
+# I'm able to approve the application for any number of pets
