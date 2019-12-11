@@ -1,5 +1,7 @@
 <section id="pets_favorited">
-  <h2>Favorites</h2>
+  <h2 style='display: inline;'>Favorites</h2>
+  <%= link_to 'Apply to Adopt Favorited Pets', 'favorites/application', :class => 'tab-space' %>
+  <%= link_to 'Delete All Favorites', "/favorites/all", method: :delete, :class => 'tab-space' %>
   <hr>
   <% if @pet_favorites.empty? %>
     <p><%= 'No pets have been favorited...' %></p>
@@ -15,16 +17,11 @@
       </div>
     <% end %>
   </div>
-  <hr>
   <br>
-  <%= link_to 'Apply to Adopt Favorited Pets', 'favorites/application' %>
-  <%= link_to 'Delete All Favorites', "/favorites/all", method: :delete, :class => 'tab-space' %>
-  <br><br>
   <hr>
 </section>
 <br>
 <h4>Pets Applied For</h4>
-<br>
 <div class="grid" id="pets_applied_for">
   <% @pets_applied_for.each do |key,value| %>
     <div class="grid_item" id="pet-applied-for-<%= key %>">

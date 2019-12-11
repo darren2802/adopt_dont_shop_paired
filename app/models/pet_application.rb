@@ -3,7 +3,7 @@ class PetApplication < ApplicationRecord
   belongs_to :application
 
   def self.pets_data(param_id)
-    pets = PetApplication.select('Pets.id, Pets.name, Pets.application_approved')
+    pets = PetApplication.select('Pets.id, Pets.name, pet_applications.application_approved')
                         .joins(:pet)
                         .where('pet_applications.application_id = ?', param_id)
 
@@ -12,7 +12,11 @@ class PetApplication < ApplicationRecord
       pets_data[pet.id] = Hash.new()
       pets_data[pet.id]['name'] = pet.name
       pets_data[pet.id]['application_approved'] = pet.application_approved
-      if PetApplication.where('pet_applications.pet_id = ? and pet_applications.application_id <> ?', pet.id, param_id).count > 0
+
+
+
+      if PetApplication.where('pet_applications.pet_id = ? and pet_applications.application_id != ? and pet_applications.application_approved = true', pet.id, param_id)
+                        .count > 0
         pets_data[pet.id]['approved_in_other_app'] = true
       else
         pets_data[pet.id]['approved_in_other_app'] = false

@@ -15,7 +15,7 @@ class PetsController < ApplicationController
 
     @reserved_for = PetApplication.select('applications.name')
                                   .joins(:application)
-                                  .where('pet_applications.pet_id = ?',params[:id])
+                                  .where('pet_applications.pet_id = ? and pet_applications.application_approved = true',params[:id])
                                   .pluck(:name)[0]
   end
 
@@ -49,10 +49,15 @@ class PetsController < ApplicationController
   end
 
   def approve_application
-    modified_params = pet_params
-    modified_params[:application_approved] = true
-    pet = Pet.find(params[:id])
-    pet.update(modified_params)
+    pet_app = PetApplication.where('pet_id = ?', params[:id])
+    pet_app.update(application_approved: true)
+
+    redirect_to "/pets/#{params[:id]}"
+  end
+
+  def revoke_application
+    pet_app = PetApplication.where('pet_id = ?', params[:id])
+    pet_app.update(application_approved: false)
 
     redirect_to "/pets/#{params[:id]}"
   end
