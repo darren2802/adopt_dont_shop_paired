@@ -31,6 +31,9 @@ class SheltersController < ApplicationController
         PetApplication.joins(:pet).where('shelter_id = ?', params[:id]).destroy_all
         Pet.where('shelter_id = ?', params[:id]).destroy_all
       end
+      if Review.where('reviews.shelter_id = ?', params[:id]).count > 0
+        Review.where('reviews.shelter_id = ?', params[:id]).destroy_all
+      end
       shelter.destroy
       flash[:notice] = "#{shelter.name} has been deleted."
     else

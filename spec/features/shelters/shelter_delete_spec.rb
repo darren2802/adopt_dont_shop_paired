@@ -126,9 +126,60 @@ RSpec.describe 'Delete shelter' do
 
       expect(page).to have_content("#{shelter_1.name} has been deleted.")
     end
+
+    it 'can delete reviews for a shelter when the shelter is deleted' do
+      shelter_1 = Shelter.create( name: 'Dog Haven',
+                                  address: '123 Curtis Street',
+                                  city: 'Denver',
+                                  state: 'Colorado',
+                                  zip: 80202)
+
+      pet_1 = Pet.create( name: 'Elvis',
+                          image: 'https://adopt-dont-shop.s3-us-west-1.amazonaws.com/images/border_collie_92.jpg',
+                          age_approx: 7,
+                          sex: 'male',
+                          breed: 'Border Collie',
+                          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                          shelter_id: shelter_1.id)
+
+      visit "/shelters/#{shelter_1.id}"
+      click_link 'Add Review'
+      expect(current_path).to eq("/shelters/#{shelter_1.id}/reviews/new")
+
+      fill_in 'Title', with: 'Shelter well maintained'
+      fill_in 'Rating', with: 5
+      fill_in 'Content', with: 'Lorem ipsum dolor sit amet'
+      fill_in 'Image', with: 'https://adopt-dont-shop.s3-us-west-1.amazonaws.com/images_shelters/img_shelter_1_german_shepherds.jpg'
+      click_on 'Add Review'
+
+      review = Review.last
+      within("#review-#{review.id}") do
+        expect(page).to have_content('Shelter well maintained')
+        expect(page).to have_content(5)
+        expect(page).to have_content('Lorem ipsum dolor sit amet')
+        expect(page).to have_css("img[src *= 'img_shelter_1_german_shepherds.jpg']")
+      end
+
+      visit '/shelters'
+
+      click_link 'Delete'
+    end
   end
 end
 
+# User Story 28, Deleting Shelters Deletes its Reviews
+#
+# As a visitor
+# When I delete a shelter
+# All reviews associated with that shelter are also deleted
+
+# User Story 27, Shelters can be Deleted as long as all pets do not have approved applications on them
+#
+# As a visitor
+# If a shelter doesn't have any pets with a pending status
+# I can delete that shelter
+# When that shelter is deleted
+# Then all of their pets are deleted as well
 
 # User Story 26, Shelters with Pets that have pending status cannot be Deleted
 #
