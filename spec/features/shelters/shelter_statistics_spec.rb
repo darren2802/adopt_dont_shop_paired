@@ -21,4 +21,62 @@ RSpec.describe 'Shelter Pet Count', type: :feature do
     expect(page).to have_content("Number of pets at this shelter: 6")
   end
 
+  it 'displays the average shelter review rating for a shelter' do
+    visit "/shelters/#{@shelter_1.id}"
+    # add reviews
+    click_link 'Add Review'
+    fill_in 'Title', with: 'Shelter well maintained'
+    fill_in 'Rating', with: 5
+    fill_in 'Content', with: 'Lorem ipsum dolor sit amet'
+    fill_in 'Image', with: 'https://adopt-dont-shop.s3-us-west-1.amazonaws.com/images_shelters/img_shelter_1_german_shepherds.jpg'
+    click_on 'Add Review'
+
+    click_link 'Add Review'
+    fill_in 'Title', with: 'Shelter well maintained'
+    fill_in 'Rating', with: 3
+    fill_in 'Content', with: 'Lorem ipsum dolor sit amet'
+    fill_in 'Image', with: 'https://adopt-dont-shop.s3-us-west-1.amazonaws.com/images_shelters/img_shelter_1_german_shepherds.jpg'
+    click_on 'Add Review'
+
+    visit "/shelters/#{@shelter_2.id}"
+    click_link 'Add Review'
+    fill_in 'Title', with: 'Shelter well maintained'
+    fill_in 'Rating', with: 4
+    fill_in 'Content', with: 'Lorem ipsum dolor sit amet'
+    fill_in 'Image', with: 'https://adopt-dont-shop.s3-us-west-1.amazonaws.com/images_shelters/img_shelter_1_german_shepherds.jpg'
+    click_on 'Add Review'
+
+    visit "/shelters/#{@shelter_1.id}"
+    expect(page).to have_content("Average review rating for this shelter: 4.0")
+  end
+
+  it 'displays the number of applications on file for pets of this shelter' do
+
+    # favorite the pets
+    visit "/pets/#{@pet_1.id}"
+    click_link 'Favorite This Pet'
+    visit "/pets/#{@pet_2.id}"
+    click_link 'Favorite This Pet'
+    visit "/pets/#{@pet_3.id}"
+    click_link 'Favorite This Pet'
+
+    # go to the Favorites page and make an application for Danny to apply for favorited pets
+    visit '/favorites'
+    click_link 'Apply to Adopt Favorited Pets'
+
+    page.check("checkbox-#{@pet_1.id}")
+    page.check("checkbox-#{@pet_2.id}")
+    fill_in 'Name', with: 'Danny Smith'
+    fill_in 'Address', with: '123 Abc Street'
+    fill_in 'City', with: 'Denver'
+    fill_in 'State', with: 'Colorado'
+    fill_in 'Zip', with: '80201'
+    fill_in 'Phone', with: '123456789'
+    fill_in 'Motivation', with: 'Because...'
+    click_button 'Submit Application'
+
+    visit "/shelters/#{@shelter_2.id}"
+
+    expect(page).to have_content("Number of applications on file for pets at this shelter: 2")
+  end
 end

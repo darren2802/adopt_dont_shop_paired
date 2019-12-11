@@ -5,10 +5,17 @@
 <p><%= @shelter.state %></p>
 <p><%= @shelter.zip %></p>
 <br>
+<% if @shelter.number_applications %>
+  <p><%= "Number of applications on file for pets at this shelter: #{@shelter.number_applications}" %></p>
+<% end %>
+<br>
 <%= link_to 'Pets at this shelter', "/shelters/#{@shelter.id}/pets" %>
 <br><br><br>
-<h4>Reviews</h4>
-<br>
+<h4 style='display: inline;'>Reviews</h4>
+<% if @shelter.average_review_rating %>
+  <p><%= "Average review rating for this shelter: #{@shelter.average_review_rating.round(1)}" %></p>
+<% end %>
+<br><br>
 <%= link_to 'Add Review', "/shelters/#{@shelter.id}/reviews/new" %>
 <hr>
 <% @shelter.reviews.each do |review| %>
