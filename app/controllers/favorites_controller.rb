@@ -1,20 +1,8 @@
 class FavoritesController < ApplicationController
   def index
-    @pet_favorites = Hash.new()
-
-    favorite.contents.each_key do |key|
-      @pet_favorites[key] = Hash.new()
-      @pet_favorites[key]['name'] = Pet.find(key).name
-      @pet_favorites[key]['image'] = Pet.find(key).image
-    end
-    @pet_favorites
-
-    pet_ids = PetApplication.all.distinct.pluck(:pet_id)
-    @pets_applied_for = Hash.new()
-    pet_ids.each do |pet_id|
-      @pets_applied_for[pet_id] = Pet.find(pet_id).name
-    end
-    @pets_applied_for
+    @favorite = Favorite.new(session[:favorite])
+    @pet_favorites = @favorite.favorite_pets
+    @pets_applied_for = @favorite.applied_for_pets
   end
 
    def add_favorite

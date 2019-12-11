@@ -1,29 +1,34 @@
 <div class="grid">
   <div class="grid_item">
-    <img src="<%= @pet.image %>" class="grid_img">
+    <img src="<%= @pet.image %>" class="grid_img"><br>
+    <%= @pet.description %>
   </div>
   <div class="grid_item">
     <h2><%= @pet.name %></h2>
     <%= @pet.breed %><br>
     <%= link_to "#{@pet.shelter.name}", "/shelters/#{@pet.shelter_id}" %>
     <br><br>
-    <%= @pet.description %><br>
+
     Age: <%= @pet.age_approx %><br>
     <%= @pet.sex.titleize %><br>
-    <hr>
-    <%= link_to 'Update', "/pets/#{@pet.id}/edit", :class => 'tab-space' %>
-    <%= link_to 'Delete', "/pets/#{@pet.id}/", method: :delete, :class => 'tab-space' %>
-    <br><br>
+
+    <br>
     <% if @favorited %>
       <%= link_to "Remove pet From Favorites", "/favorites/#{@pet.id}", method: :delete %>
     <% else %>
       <%= link_to "Favorite This Pet", "/favorites/#{@pet.id}" %>
     <% end %>
     <br>
-    <%= link_to 'Applications For This Pet', "/pets/#{@pet.id}/applications" %><br>
+    <%= link_to 'Applications For This Pet', "/pets/#{@pet.id}/applications" %><br><br>
     <% if @pet.application_approved %>
-      <i><%= "Application Pending" %></i>
+      <i><%= "Application Pending" %></i><br>
       <i><%= "On Hold For: #{@reserved_for}" %></i>
+    <% else %>
+      <i><%= "Adoptable" %></i>
     <% end %>
+    <br>
+    <hr>
+    <%= link_to 'Update', "/pets/#{@pet.id}/edit", :class => 'tab-space' %>
+    <%= link_to 'Delete', "/pets/#{@pet.id}/", method: :delete, :class => 'tab-space' %>
   </div>
 </div>

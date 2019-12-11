@@ -3,8 +3,8 @@
   <% @pet_favorites.each do |key,value| %>
     <section id="favorited_pets-<%= key %>">
       <%= label_tag name="#{value['name']}" %>
-      <%= check_box_tag "checkbox-#{key}" %>
-
+      <!-- < %= check_box_tag "checkbox-#{key}" %> -->
+      <%= check_box_tag "pets_selected[]", key, nil, :id => "checkbox-#{key}" %>
 
     </section>
   <% end %>

@@ -4,16 +4,10 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    pets_applied_for = []
-    params.each do |key,value|
-      if key[0..8] == 'checkbox-'
-        pets_applied_for << key[9..-1]
-      end
-    end
+    pets_applied_for = params[:pets_selected]
 
     new_app = Application.create(application_params)
-
-    if new_app.save
+    if new_app.save && pets_applied_for
       flash[:notice] = 'Thank you for applying to adopt'
       @favorite = Favorite.new(session[:favorite])
       pets_applied_for.each do |pet_id|
@@ -29,19 +23,13 @@ class ApplicationsController < ApplicationController
   end
 
   def populate_pet_favorites
-    pet_favorites = Hash.new()
-    favorite.contents.each_key do |key|
-      pet_favorites[key] = Hash.new()
-      pet_favorites[key]['name'] = Pet.find(key).name
-    end
-    pet_favorites
+    @favorite = Favorite.new(session[:favorite])
+    @favorite.favorite_pets
   end
 
   def show
     @application = Application.find(params[:id])
-    pets = PetApplication.select('Pets.id, Pets.name, Pets.application_approved')
-                        .joins(:pet)
-                        .where('pet_applications.application_id = ?', params[:id])
+    pets = PetApplication.pets_data(params[:id])
     @pets_data = Hash.new()
     pets.each do |pet|
       @pets_data[pet.id] = Hash.new()
@@ -56,8 +44,8 @@ class ApplicationsController < ApplicationController
   end
 
   def pet_index
-    @apps = PetApplication.select('Applications.id, Applications.name')
-                            .joins(:application)
+    @apps = PetApplication.select('Applications.id, Applications.name, Pets.name as pet_name')
+                            .joins(:application).joins(:pet)
                             .where('pet_applications.pet_id = ?', params[:id])
     flash[:notice] = 'This pet has no applications for adoption' if @apps.empty?
   end
