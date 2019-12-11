@@ -36,16 +36,18 @@
 <br>
 <table class="table">
   <th>Name</th><th>Approve / Revoke</th>
-  <% @pets.each do |pet| %>
-    <tr id="pet-<%= pet.id %>">
+  <% @pets_data.each do |key, value| %>
+    <tr id="pet-<%= key %>">
       <td>
-        <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+        <%= link_to "#{value['name']}", "/pets/#{key}" %>
       </td>
       <td>
-        <% if pet.application_approved %>
-          <%= link_to 'Revoke', "/applications/#{pet.id}/revoke" %>
+        <% if value['approved_in_other_app'] == true %>
+          <u><%= "Already Approved In Other Application" %></u>
+        <% elsif value['application_approved'] %>
+          <%= link_to 'Revoke', "/applications/#{key}/revoke" %>
         <% else %>
-          <%= link_to 'Approve', "/applications/#{pet.id}/approve" %>
+          <%= link_to 'Approve', "/applications/#{key}/approve" %>
         <% end %>
       </td>
     </tr>

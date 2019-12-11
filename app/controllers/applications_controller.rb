@@ -39,9 +39,20 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    @pets = PetApplication.select('Pets.id, Pets.name, Pets.application_approved')
+    pets = PetApplication.select('Pets.id, Pets.name, Pets.application_approved')
                         .joins(:pet)
                         .where('pet_applications.application_id = ?', params[:id])
+    @pets_data = Hash.new()
+    pets.each do |pet|
+      @pets_data[pet.id] = Hash.new()
+      @pets_data[pet.id]['name'] = pet.name
+      @pets_data[pet.id]['application_approved'] = pet.application_approved
+      if PetApplication.where('pet_applications.pet_id = ? and pet_applications.application_id <> ?', pet.id, params[:id]).count > 0
+        @pets_data[pet.id]['approved_in_other_app'] = true
+      else
+        @pets_data[pet.id]['approved_in_other_app'] = false
+      end
+    end
   end
 
   def pet_index
