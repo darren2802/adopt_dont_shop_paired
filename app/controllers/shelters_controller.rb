@@ -25,8 +25,13 @@ class SheltersController < ApplicationController
 
   def destroy
     shelter = Shelter.find(params[:id])
-    require "pry"; binding.pry
-    shelter.destroy
+
+    if PetApplication.joins(:pet).where('pet_applications.application_approved = true and pets.shelter_id = ?', params[:id]).count == 0
+      shelter.destroy
+      flash[:notice] = "#{shelter.name} has been deleted."
+    else
+      flash[:notice] = "#{shelter.name} cannot be deleted as it has pets with approved applications (status pending). Please revoke the applications first."
+    end
 
     redirect_to '/shelters'
   end
