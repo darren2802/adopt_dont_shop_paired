@@ -25,6 +25,7 @@ RSpec.describe 'Update shelter' do
       expect(current_path).to eq('/shelters')
       expect(page).to have_content('Dog Sanctuary')
       expect(page).to_not have_content('Dog Haven')
+      expect(page).to have_content('Shelter updated successfully.')
 
       click_on 'Dog Sanctuary'
 
@@ -36,6 +37,30 @@ RSpec.describe 'Update shelter' do
       expect(page).to_not have_content('Colorado')
       expect(page).to have_content(50201)
       expect(page).to_not have_content(80202)
+    end
+
+    it 'generates a flash message indicating missing fields if form is incomplete' do
+      shelter_1 = Shelter.create( name: 'Dog Haven',
+                                  address: '123 Curtis Street',
+                                  city: 'Denver',
+                                  state: 'Colorado',
+                                  zip: 80202)
+
+      visit 'shelters'
+
+      click_on 'Edit'
+
+      expect(current_path).to eq("/shelters/#{shelter_1.id}/edit")
+
+      fill_in 'Name', with: 'Dog Sanctuary'
+      fill_in 'Address', with: ''
+      fill_in 'City', with: 'Cheyenne'
+      fill_in 'State', with: 'Wyoming'
+      fill_in 'Zip', with: 50201
+      click_on 'Update Shelter'
+
+      expect(current_path).to eq("/shelters/#{shelter_1.id}/edit")
+      expect(page).to have_content('Form was incomplete, please try again')
     end
   end
 end

@@ -8,8 +8,14 @@ class SheltersController < ApplicationController
   end
 
   def create
-    Shelter.create(shelter_params)
-    redirect_to '/shelters'
+    new_shelter = Shelter.create(shelter_params)
+    if new_shelter.save
+      flash[:notice] = "#{new_shelter.name} has been created."
+      redirect_to "/shelters"
+    else
+      flash.now[:notice] = "Shelter not created due to incomplete fields, please try again."
+      render :new
+    end
   end
 
   def edit
@@ -20,7 +26,14 @@ class SheltersController < ApplicationController
     shelter = Shelter.find(params[:id])
     shelter.update(shelter_params)
 
-    redirect_to '/shelters'
+    if shelter.save
+      flash[:notice] = 'Shelter updated successfully.'
+      redirect_to '/shelters'
+    else
+      flash[:notice] = 'Form was incomplete, please try again'
+      @shelter = Shelter.find(params[:id])
+      render :edit
+    end
   end
 
   def destroy
