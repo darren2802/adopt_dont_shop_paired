@@ -26,4 +26,29 @@ class Favorite
   def destroy_all
     @contents.clear
   end
+
+  def favorite_pets
+    favorite_pets = Hash.new()
+    @contents.each_key do |key|
+      favorite_pets[key] = Hash.new()
+      favorite_pets[key]['name'] = Pet.find(key).name
+      favorite_pets[key]['image'] = Pet.find(key).image
+    end
+    favorite_pets
+  end
+
+  def applied_for_pets
+    pet_ids = PetApplication.all.distinct.pluck(:pet_id)
+    pet_applications = Hash.new()
+    pet_ids.each do |pet_id|
+      pet_applications[pet_id] = Pet.find(pet_id).name
+    end
+    pet_applications
+  end
+
+  def approved
+    PetApplication.select('pets.id, pets.name')
+        .joins(:pet)
+        .where('pet_applications.application_approved = true')
+  end
 end

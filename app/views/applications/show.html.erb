@@ -1,0 +1,55 @@
+<br>
+<h4>Application <%= @application.id %></h4>
+<br>
+<table class="table">
+  <tr>
+    <td>Name:</td>
+    <td><%= @application.name %></td>
+  </tr>
+  <tr>
+    <td>Address:</td>
+    <td><%= @application.address %></td>
+  </tr>
+  <tr>
+    <td>City:</td>
+    <td><%= @application.city %></td>
+  </tr>
+  <tr>
+    <td>State:</td>
+    <td><%= @application.state %></td>
+  </tr>
+  <tr>
+    <td>Zip:</td>
+    <td><%= @application.zip %></td>
+  </tr>
+  <tr>
+    <td>Phone:</td>
+    <td><%= @application.phone %></td>
+  </tr>
+  <tr>
+    <td>Motivation:</td>
+    <td><%= @application.motivation %></td>
+  </tr>
+</table>
+<br>
+<h4>Pets Under This Application</h4>
+<br>
+<table class="table">
+  <th>Name</th><th>Approve / Revoke</th>
+  <% @pets_data.each do |key, value| %>
+    <tr id="pet-<%= key %>">
+      <td>
+        <%= link_to "#{value['name']}", "/pets/#{key}" %>
+      </td>
+      <td>
+        <% if value['approved_in_other_app'] == true %>
+          <u><%= "Already Approved In Other Application" %></u>
+        <% elsif value['application_approved'] %>
+          <%= link_to 'Revoke', "/applications/#{key}/revoke" %>
+        <% else %>
+          <%= link_to 'Approve', "/applications/#{@application.id}/approve/#{key}" %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

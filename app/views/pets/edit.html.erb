@@ -16,8 +16,10 @@
   <%= label_tag :age_approx %>
   <%= number_field_tag :age_approx, value="#{@pet.age_approx}" %>
   <br>
-  <%= label_tag :sex %>
-  <%= text_field_tag :sex, value="#{@pet.sex}" %>
+  <%= radio_button_tag(:sex, :male) %>
+  <%= label_tag(:sex_male, :male) %>
+  <%= radio_button_tag(:sex, :female) %>
+  <%= label_tag(:sex_female, :female) %>
   <br>
   <br>
   <%= submit_tag 'Save' %>

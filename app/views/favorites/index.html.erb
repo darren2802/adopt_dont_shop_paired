@@ -1,30 +1,41 @@
 <section id="pets_favorited">
-  <h2>Favorites</h2>
+  <h2 style='display: inline;'>Favorites</h2>
+  <%= link_to 'Apply to Adopt Favorited Pets', 'favorites/application', :class => 'tab-space' %>
+  <%= link_to 'Delete All Favorites', "/favorites/all", method: :delete, :class => 'tab-space' %>
   <hr>
   <% if @pet_favorites.empty? %>
     <p><%= 'No pets have been favorited...' %></p>
   <% end %>
-  <% @pet_favorites.each_key do |key| %>
-    <section id="favorite-<%= key %>">
-      <h4><%= link_to @pet_favorites[key]['name'], "/pets/#{key}" %></h4>
-      <img src="<%= @pet_favorites[key]['image'] %>" class="grid_img">
-      <%= link_to 'Remove pet From Favorites', "/favorites/#{key}/index", method: :delete %>
-    </section>
-    <hr>
-  <% end %>
-  <%= link_to 'Apply to Adopt Favorited Pets', 'favorites/application' %>
-  <br><br>
-  <%= link_to 'Delete All Favorites', "/favorites/all", method: :delete %>
-  <br><br>
+
+  <div class="grid">
+    <% @pet_favorites.each_key do |key| %>
+      <div class="grid_item" id="favorite-<%= key %>">
+        <h4><%= link_to @pet_favorites[key]['name'], "/pets/#{key}" %></h4>
+        <img src="<%= @pet_favorites[key]['image'] %>" class="grid_img">
+        <br><br>
+        <%= link_to 'Remove pet From Favorites', "/favorites/#{key}/index", method: :delete %>
+      </div>
+    <% end %>
+  </div>
+  <br>
   <hr>
 </section>
-<h4>Pets Applied For</h4>
 <br>
-<section id="pets_applied_for">
+<h4>Pets Applied For</h4>
+<div class="grid" id="pets_applied_for">
   <% @pets_applied_for.each do |key,value| %>
-    <section id="pet-applied-for-<%= key %>">
+    <div class="grid_item" id="pet-applied-for-<%= key %>">
       <%= link_to value, "/pets/#{key}" %>
-    </section>
-    <hr>
+    </div>
   <% end %>
-</section>
+</div>
+<hr>
+<br>
+<h4>Pets with Approved Applications</h4>
+<div class="grid" id="approved-applications">
+  <% @pets_approved.each do |pet| %>
+    <div class="grid_item" id="approved-pet-<%= pet.id %>">
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    </div>
+  <% end %>
+</div>

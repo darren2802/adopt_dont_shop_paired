@@ -5,35 +5,13 @@ class PetsController < ApplicationController
 
   def show
     @pet = Pet.find(params[:id])
-    @adopt_status = ''
-    @adopt_link = ''
-    @adopt_route = ''
-    if @pet.adoptable == true
-      @adopt_status = 'Adoptable'
-      @adopt_link = 'Change to Adoption Pending'
-      @adopt_route = "/pets/#{@pet.id}/pending"
-    else
-      @adopt_status = 'Pending adoption'
-      @adopt_link = 'Change to Adoptable'
-      @adopt_route = "/pets/#{@pet.id}/adoptable"
-    end
-    @adopt_status
-    # @favorite_link = ''
-    # @favorite_route = ''
-    # @favorite_verb = ''
+
     @favorited = false
     if favorite.contents.has_key?(params[:id])
       @favorited = true
-      # @favorite_link = 'Remove pet From Favorites'
-      # @favorite_route = "/favorites/#{@pet.id}"
-      # @favorite_verb = "method: :delete"
     else
       @favorited = false
-      # @favorite_link = 'Favorite This Pet'
-      # @favorite_route ="/favorites/#{@pet.id}"
-      # @favorite_verb = "method: :get"
     end
-
   end
 
   def new
@@ -42,10 +20,16 @@ class PetsController < ApplicationController
 
   def create
     modified_params = pet_params
-    modified_params[:adoptable] = true
     shelter = Shelter.find(modified_params[:shelter_id])
     pet = shelter.pets.create(modified_params)
-    redirect_to "/shelters/#{shelter.id}/pets"
+
+    if pet.save
+      flash[:notice] = "#{pet.name} (id: #{pet.id}) was added successfully."
+      redirect_to "/shelters/#{shelter.id}/pets"
+    else
+      flash[:notice] = 'Pet not added due to incomplete information, please try again.'
+      render :new
+    end
   end
 
   def edit
@@ -53,33 +37,45 @@ class PetsController < ApplicationController
   end
 
   def update
-    pet = Pet.find(params[:id])
-    pet.update(pet_params)
+    @pet = Pet.find(params[:id])
+    @pet.update(pet_params)
 
-    redirect_to "/pets/#{pet.id}"
+    if @pet.save
+      flash[:notice] = "#{@pet.name} (id: #{@pet.id}) was updated successfully."
+      redirect_to "/pets/#{@pet.id}"
+    else
+      flash[:notice] = 'Pet not updated due to incomplete information, please try again.'
+      render :edit
+    end
   end
 
   def destroy
-    pet = Pet.find(params[:id])
-    pet.destroy
-
-    redirect_to '/pets'
+    @pet = Pet.find(params[:id])
+    if PetApplication.where('pet_applications.application_approved = true and pet_applications.pet_id = ?', params[:id]).count > 0
+      flash.now[:notice] = 'Pet has approved application and cannot be deleted.'
+      render :show
+    else
+      @pet.destroy
+      pet_id_str = params[:id].to_s
+      @favorite = Favorite.new(session[:favorite])
+      @favorite.delete_pet(pet_id_str)
+      flash.now[:notice] = "#{@pet.name} (id: #{@pet.id}) has been deleted."
+      redirect_to '/pets'
+    end
   end
 
-  def topending
-    pet = Pet.find(params[:id])
-    pet.adoptable = false
-    pet.save
+  def approve_application
+    pet_app = PetApplication.where('application_id = ? and pet_id = ?', params[:app_id], params[:pet_id])
+    pet_app.update(application_approved: true)
 
-    redirect_to '/pets'
+    redirect_to "/pets/#{params[:pet_id]}"
   end
 
-  def toadoptable
-    pet = Pet.find(params[:id])
-    pet.adoptable = true
-    pet.save
+  def revoke_application
+    pet_app = PetApplication.where('pet_id = ?', params[:id])
+    pet_app.update(application_approved: false)
 
-    redirect_to '/pets'
+    redirect_to "/pets/#{params[:id]}"
   end
 
   private

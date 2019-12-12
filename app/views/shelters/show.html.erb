@@ -5,21 +5,32 @@
 <p><%= @shelter.state %></p>
 <p><%= @shelter.zip %></p>
 <br>
+<% if @shelter.number_applications %>
+  <p><%= "Number of applications on file for pets at this shelter: #{@shelter.number_applications}" %></p>
+<% end %>
+<br>
 <%= link_to 'Pets at this shelter', "/shelters/#{@shelter.id}/pets" %>
 <br><br><br>
-<h4>Reviews</h4>
+<h4 style='display: inline;'>Reviews</h4>
 <br>
+<% if @shelter.average_review_rating %>
+  <p><%= "Average review rating for this shelter: #{@shelter.average_review_rating.round(1)}" %></p>
+<% end %>
+<br><br>
 <%= link_to 'Add Review', "/shelters/#{@shelter.id}/reviews/new" %>
 <hr>
-<% @shelter.reviews.each do |review| %>
-  <section id="review-<%= review.id %>">
-    <h6><%= review.title %></h6>
-    <p><%= review.rating %></p>
-    <p><%= review.content %></p>
-    <img src="<%= review.image %>">
-    <br><br>
-    <%= link_to 'Edit Review', "/reviews/#{review.id}/edit" %>
-    <%= link_to 'Delete Review', "/reviews/#{review.id}", method: :delete, :class => 'tab-space' %>
-    <hr>
-  </section>
-<% end %>
+<div class="grid">
+  <% @shelter.reviews.each do |review| %>
+    <div class="grid_item" id="review-img-<%= review.id %>">
+      <img src="<%= review.image %>" class="grid_img">
+    </div>
+    <div class="grid_item" id="review-<%= review.id %>">
+      <h4><%= review.title %></h4>
+      <p>Rating: <%= review.rating %></p>
+      <p><i><%= review.content %></i></p>
+      <br><br>
+      <%= link_to 'Edit Review', "/reviews/#{review.id}/edit" %>
+      <%= link_to 'Delete Review', "/reviews/#{review.id}", method: :delete, :class => 'tab-space' %>
+    </div>
+  <% end %>
+</div>

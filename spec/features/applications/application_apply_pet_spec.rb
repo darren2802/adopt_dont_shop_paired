@@ -120,12 +120,31 @@ RSpec.describe 'Applying for a pet' do
 
 end
 
+
+# User Story 18, List of Pets that have applications on them
+#
 # As a visitor
 # After one or more applications have been created
 # When I visit the favorites index page
 # I see a section on the page that has a list of all of the pets that have at least one application on them
 # Each pet's name is a link to their show page
 
+# As a visitor
+# When I apply for a pet and fail to fill out any of the following:
+# - Name
+# - Address
+# - City
+# - State
+# - Zip
+# - Phone Number
+# - Description of why I'd make a good home for this/these pet(s)
+# And I click on a button to submit my application
+# I'm redirect back to the new application form to complete the necessary fields
+# And I see a flash message indicating that I must complete the form in order to submit the application
+
+
+# User Story 17, Incomplete application for a Pet
+#
 # As a visitor
 # When I apply for a pet and fail to fill out any of the following:
 # - Name

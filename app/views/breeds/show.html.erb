@@ -1,3 +1,5 @@
+<br>
+<h4><%= @pets.first.breed.pluralize(2) %></h4>
 <div class="grid">
   <% @pets.each do |pet| %>
     <div class="grid_item">
@@ -7,8 +9,6 @@
       <%= pet.sex %><br>
       <%= pet.age_approx %> years of age<br>
       <%= link_to "#{pet.shelter.name}", "/shelters/#{pet.shelter_id}" %><br>
-      Adoptable: <%= pet.adoptable %>
-      <br>
       <hr>
       <%= link_to 'Update', "/pets/#{pet.id}/edit", :class => 'tab-space' %>
       <%= link_to 'Delete', "/pets/#{pet.id}/", method: :delete, :class => 'tab-space' %>

@@ -16,12 +16,17 @@ RSpec.describe 'Shelter reviews' do
       expect(page).to have_content(@review_1.title)
       expect(page).to have_content(@review_1.rating)
       expect(page).to have_content(@review_1.content)
+    end
+    within("#review-img-#{@review_1.id}") do
       expect(page).to have_css("img[src *= 'img_shelter_1_german_shepherds.jpg']")
     end
+
     within("#review-#{@review_2.id}") do
       expect(page).to have_content(@review_2.title)
       expect(page).to have_content(@review_2.rating)
       expect(page).to have_content(@review_2.content)
+    end
+    within("#review-img-#{@review_2.id}") do
       expect(page).to have_css("img[src *= 'img_shelter_2_shaggy.jpg']")
     end
     within("#review-#{@review_3.id}") do

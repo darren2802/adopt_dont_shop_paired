@@ -10,11 +10,14 @@ RSpec.describe 'Shelter Review Delete' do
     visit "/shelters/#{shelter_1.id}"
     expect(current_path).to eq("/shelters/#{shelter_1.id}")
 
+    within("#review-img-#{review_2.id}") do
+      expect(page).to have_css("img[src *= 'img_shelter_2_shaggy.jpg']")
+    end
+
     within("#review-#{review_2.id}") do
       expect(page).to have_content(review_2.title)
       expect(page).to have_content(review_2.rating)
       expect(page).to have_content(review_2.content)
-      expect(page).to have_css("img[src *= 'img_shelter_2_shaggy.jpg']")
 
       click_link 'Delete Review'
     end

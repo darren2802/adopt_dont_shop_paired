@@ -1,0 +1,7 @@
+<br>
+<h4>Applications For This Pet</h4>
+<br><br>
+<% @apps.each do |app| %>
+  <%= link_to "#{app.name}", "/applications/#{app.id}" %>
+  <hr>
+<% end %>

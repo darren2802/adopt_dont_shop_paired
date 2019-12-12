@@ -28,5 +28,32 @@ RSpec.describe 'Shelter Pet Creation', type: :feature do
     expect(page).to have_content(9)
     expect(page).to have_content('female')
     expect(page).to have_content('Adoptable')
+
+    pet = Pet.last
+    expect(page).to have_content("#{pet.name} (id: #{pet.id}) was added successfully.")
+  end
+
+  it 'can display a flash message when trying to add a pet with incomplete information' do
+    visit "/shelters/#{@shelter_1.id}/pets/new"
+
+    fill_in 'Name', with: 'Costello'
+    fill_in 'Breed', with: 'German Shepherd'
+    fill_in 'Image', with: 'https://adopt-dont-shop.s3-us-west-1.amazonaws.com/images/staffordshire_bullterrier_144.jpg'
+    fill_in 'Description', with: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+    # fill_in 'Age approx', with: 9
+    choose 'female'
+
+    click_on 'Add Pet'
+
+    visit "/shelters/#{@shelter_1.id}/pets/new"
+    expect(page).to have_content('Pet not added due to incomplete information, please try again.')
   end
 end
+
+
+# User Story 33, Flash Message for Pet Create and Update
+#
+# As a visitor
+# When I am updating or creating a pet
+# If I try to submit the form with incomplete information
+# I see a flash message indicating which field(s) I am missing
