@@ -26,7 +26,7 @@ RSpec.describe 'Pet update', type: :feature do
     fill_in 'Breed', with: 'German Shepherd'
     fill_in 'Description', with: 'Meet Costello, a German Sheperd 3 years of age.'
     fill_in 'Age approx', with: 3
-    fill_in 'Sex', with: 'female'
+    choose 'female'
 
     click_on 'Save'
 
@@ -57,7 +57,7 @@ RSpec.describe 'Pet update', type: :feature do
     fill_in 'Breed', with: ''
     fill_in 'Description', with: 'Meet Costello, a German Sheperd 3 years of age.'
     fill_in 'Age approx', with: 3
-    fill_in 'Sex', with: 'female'
+    choose 'female'
 
     click_on 'Save'
 

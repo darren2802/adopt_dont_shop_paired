@@ -65,10 +65,10 @@ class PetsController < ApplicationController
   end
 
   def approve_application
-    pet_app = PetApplication.where('pet_id = ?', params[:id])
+    pet_app = PetApplication.where('application_id = ? and pet_id = ?', params[:app_id], params[:pet_id])
     pet_app.update(application_approved: true)
 
-    redirect_to "/pets/#{params[:id]}"
+    redirect_to "/pets/#{params[:pet_id]}"
   end
 
   def revoke_application

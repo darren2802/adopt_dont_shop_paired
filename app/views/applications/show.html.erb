@@ -47,7 +47,7 @@
         <% elsif value['application_approved'] %>
           <%= link_to 'Revoke', "/applications/#{key}/revoke" %>
         <% else %>
-          <%= link_to 'Approve', "/applications/#{key}/approve" %>
+          <%= link_to 'Approve', "/applications/#{@application.id}/approve/#{key}" %>
         <% end %>
       </td>
     </tr>

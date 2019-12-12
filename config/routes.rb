@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   delete '/favorites/:pet_id/index', to: 'favorites#destroy_from_index'
   post '/applications', to: 'applications#create'
   get '/applications/:id', to: 'applications#show'
-  get '/applications/:id/approve', to: 'pets#approve_application'
+  get '/applications/:app_id/approve/:pet_id', to: 'pets#approve_application'
   get '/applications/:id/revoke', to: 'pets#revoke_application'
   get '/breeds', to: 'breeds#index'
   get '/breeds/:breed_name', to: 'breeds#show'
