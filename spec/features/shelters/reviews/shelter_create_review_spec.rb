@@ -22,6 +22,8 @@ RSpec.describe 'Shelter Review Creation' do
         expect(page).to have_content('Shelter well maintained')
         expect(page).to have_content(5)
         expect(page).to have_content('Lorem ipsum dolor sit amet')
+      end
+      within("#review-img-#{review.id}") do
         expect(page).to have_css("img[src *= 'img_shelter_1_german_shepherds.jpg']")
       end
     end

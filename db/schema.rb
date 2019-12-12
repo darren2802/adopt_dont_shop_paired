@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191212042527) do
+ActiveRecord::Schema.define(version: 20191212140227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 20191212042527) do
 
   create_table "pets", force: :cascade do |t|
     t.string "name"
-    t.string "image"
     t.integer "age_approx"
     t.string "sex"
     t.datetime "created_at", null: false
@@ -47,6 +46,7 @@ ActiveRecord::Schema.define(version: 20191212042527) do
     t.bigint "shelter_id"
     t.string "breed"
     t.text "description"
+    t.string "image"
     t.index ["shelter_id"], name: "index_pets_on_shelter_id"
   end
 
@@ -54,10 +54,10 @@ ActiveRecord::Schema.define(version: 20191212042527) do
     t.string "title"
     t.integer "rating"
     t.string "content"
-    t.string "image"
     t.bigint "shelter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image", default: "https://adopt-dont-shop.s3-us-west-1.amazonaws.com/images_shelters/img_shelter_1_german_shepherds.jpg"
     t.index ["shelter_id"], name: "index_reviews_on_shelter_id"
   end
 
