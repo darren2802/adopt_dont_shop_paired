@@ -12,11 +12,6 @@ class PetsController < ApplicationController
     else
       @favorited = false
     end
-
-    @reserved_for = PetApplication.select('applications.name')
-                                  .joins(:application)
-                                  .where('pet_applications.pet_id = ? and pet_applications.application_approved = true',params[:id])
-                                  .pluck(:name)[0]
   end
 
   def new
