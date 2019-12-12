@@ -22,7 +22,14 @@ class PetsController < ApplicationController
     modified_params = pet_params
     shelter = Shelter.find(modified_params[:shelter_id])
     pet = shelter.pets.create(modified_params)
-    redirect_to "/shelters/#{shelter.id}/pets"
+
+    if pet.save
+      flash[:notice] = "#{pet.name} (id: #{pet.id}) was added successfully."
+      redirect_to "/shelters/#{shelter.id}/pets"
+    else
+      flash[:notice] = 'Pet not added due to incomplete information, please try again.'
+      render :new
+    end
   end
 
   def edit
@@ -30,10 +37,16 @@ class PetsController < ApplicationController
   end
 
   def update
-    pet = Pet.find(params[:id])
-    pet.update(pet_params)
+    @pet = Pet.find(params[:id])
+    @pet.update(pet_params)
 
-    redirect_to "/pets/#{pet.id}"
+    if @pet.save
+      flash[:notice] = "#{@pet.name} (id: #{@pet.id}) was updated successfully."
+      redirect_to "/pets/#{@pet.id}"
+    else
+      flash[:notice] = 'Pet not updated due to incomplete information, please try again.'
+      render :edit
+    end
   end
 
   def destroy

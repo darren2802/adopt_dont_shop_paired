@@ -46,6 +46,22 @@ RSpec.describe 'Pet update', type: :feature do
 
     expect(page).to have_content('Female')
     expect(page).to_not have_content('Male')
+  end
 
+  it 'can display a flash message indicating update not successfully when edit form incomplete' do
+    visit "/pets/#{@pet_1.id}"
+    click_on 'Update'
+
+    fill_in 'Image', with: 'https://adopt-dont-shop.s3-us-west-1.amazonaws.com/images/german_shepherd_92.jpg'
+    fill_in 'Name', with: 'Costello'
+    fill_in 'Breed', with: ''
+    fill_in 'Description', with: 'Meet Costello, a German Sheperd 3 years of age.'
+    fill_in 'Age approx', with: 3
+    fill_in 'Sex', with: 'female'
+
+    click_on 'Save'
+
+    expect(current_path).to eq("/pets/#{@pet_1.id}")
+    expect(page).to have_content('Pet not updated due to incomplete information, please try again.')
   end
 end
