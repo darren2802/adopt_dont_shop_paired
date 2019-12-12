@@ -43,6 +43,9 @@ class PetsController < ApplicationController
       render :show
     else
       @pet.destroy
+      pet_id_str = params[:id].to_s
+      @favorite = Favorite.new(session[:favorite])
+      @favorite.delete_pet(pet_id_str)
       flash.now[:notice] = "#{@pet.name} (id: #{@pet.id}) has been deleted."
       redirect_to '/pets'
     end

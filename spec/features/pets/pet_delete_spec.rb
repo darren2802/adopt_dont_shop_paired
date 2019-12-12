@@ -83,6 +83,22 @@ RSpec.describe 'Delete Pet', type: :feature do
     expect(current_path).to eq("/pets/#{@pet_1.id}/")
     expect(page).to have_content('Pet has approved application and cannot be deleted.')
   end
+
+  it 'can remove a pet from favorites when it is deleted' do
+    visit "/pets/#{@pet_1.id}"
+    click_link 'Favorite This Pet'
+    visit '/favorites'
+
+    within("#favorite-#{@pet_1.id}") do
+      expect(page).to have_content('Elvis')
+    end
+
+    visit "/pets/#{@pet_1.id}"
+    click_link 'Delete'
+
+    visit '/favorites'
+    expect(page).to_not have_css("#favorite-#{@pet_1.id}")
+  end
 end
 
 
