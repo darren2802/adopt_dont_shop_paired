@@ -3,6 +3,7 @@ class FavoritesController < ApplicationController
     @favorite = Favorite.new(session[:favorite])
     @pet_favorites = @favorite.favorite_pets
     @pets_applied_for = @favorite.applied_for_pets
+    @pets_approved = @favorite.approved
   end
 
    def add_favorite

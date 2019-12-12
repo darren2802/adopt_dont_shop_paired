@@ -30,3 +30,12 @@
   <% end %>
 </div>
 <hr>
+<br>
+<h4>Pets with Approved Applications</h4>
+<div class="grid" id="approved-applications">
+  <% @pets_approved.each do |pet| %>
+    <div class="grid_item" id="approved-pet-<%= pet.id %>">
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    </div>
+  <% end %>
+</div>

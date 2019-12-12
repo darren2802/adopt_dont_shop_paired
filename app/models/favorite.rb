@@ -45,4 +45,10 @@ class Favorite
     end
     pet_applications
   end
+
+  def approved
+    PetApplication.select('pets.id, pets.name')
+        .joins(:pet)
+        .where('pet_applications.application_approved = true')
+  end
 end
