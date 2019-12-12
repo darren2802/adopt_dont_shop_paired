@@ -2,7 +2,7 @@
   <% @pets.each do |pet| %>
     <div class="grid_item">
       <h4><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h4>
-      <%= pet.breed %><br>
+      <%= link_to pet.breed, "/breeds/#{pet.breed.gsub(' ','_').pluralize(2).downcase}" %><br>
       <img src="<%= pet.image %>" class="grid_img"><br>
       <%= pet.sex %><br>
       <%= pet.age_approx %> years of age<br>

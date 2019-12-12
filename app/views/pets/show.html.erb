@@ -5,7 +5,7 @@
   </div>
   <div class="grid_item">
     <h2><%= @pet.name %></h2>
-    <%= @pet.breed %><br>
+    <%= link_to @pet.breed, "/breeds/#{@pet.breed.gsub(' ','_').pluralize(2).downcase}" %><br>
     <%= link_to "#{@pet.shelter.name}", "/shelters/#{@pet.shelter_id}" %>
     <br><br>
 
