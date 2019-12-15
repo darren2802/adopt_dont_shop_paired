@@ -77,8 +77,8 @@ RSpec.describe 'Favorite Index Page' do
     within("#favorite-#{pet_2.id}") do
       click_link 'Remove pet From Favorites'
       expect(current_path).to eq('/favorites')
-      # expect(page).to have_content("Favorited Pets: 1")
     end
+    expect(page).to have_content("Favorited Pets: 1")
   end
 
   it 'can see text on the Favorites index page saying no favorites if no pets have been favorited' do
