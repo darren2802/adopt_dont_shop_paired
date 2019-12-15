@@ -70,6 +70,12 @@ RSpec.describe 'Revoke An Application' do
     expect(page).to_not have_content('Application Pending')
     expect(page).to_not have_content("On Hold For: #{app.name}")
     expect(page).to have_content('Adoptable')
+
+    visit "/applications/#{app.id}"
+
+    within("#pet-#{pet_1.id}") do
+      expect(page).to have_content('Approve')
+    end
   end
 end
 

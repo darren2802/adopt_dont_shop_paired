@@ -64,20 +64,6 @@ class PetsController < ApplicationController
     end
   end
 
-  def approve_application
-    pet_app = PetApplication.where('application_id = ? and pet_id = ?', params[:app_id], params[:pet_id])
-    pet_app.update(application_approved: true)
-
-    redirect_to "/pets/#{params[:pet_id]}"
-  end
-
-  def revoke_application
-    pet_app = PetApplication.where('pet_id = ?', params[:id])
-    pet_app.update(application_approved: false)
-
-    redirect_to "/pets/#{params[:id]}"
-  end
-
   private
     def pet_params
       params.permit(:name, :image, :description, :age_approx, :sex, :breed, :shelter_id)
