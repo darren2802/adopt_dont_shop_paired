@@ -29,11 +29,19 @@ RSpec.describe 'Breeds Show page' do
     expect(current_path).to eq('/breeds/border_collies')
 
     expect(page).to have_content(pet_1.name)
-    expect(page).to have_content(pet_1.description)
     expect(page).to have_css("img[src *= 'border_collie_92.jpg']")
     expect(page).to have_content(pet_1.age_approx)
     expect(page).to have_content(pet_1.sex)
-    expect(page).to have_content('Adoptable')
+    expect(page).to have_content(shelter_1.name)
+
+    visit '/breeds'
+    click_link 'German Shepherds'
+    expect(current_path).to eq('/breeds/german_shepherds')
+
+    expect(page).to have_content(pet_2.name)
+    expect(page).to have_css("img[src *= 'african_hunting_dog_29.jpg']")
+    expect(page).to have_content(pet_2.age_approx)
+    expect(page).to have_content(pet_2.sex)
     expect(page).to have_content(shelter_1.name)
   end
 end

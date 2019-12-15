@@ -9,7 +9,13 @@ class BreedsController < ApplicationController
   end
 
   def show
-    breed = params[:breed_name].gsub('_',' ').singularize.titleize
+    breed = ''
+    if params[:breed_name] == 'border_collies'
+      # singularize below changes border_collies to Border Colly not Border Collie
+      breed = 'Border Collie'
+    else
+      breed = params[:breed_name].gsub('_',' ').singularize.titleize
+    end
     @pets = Pet.where("breed LIKE ?", "%#{breed}%")
   end
 end
