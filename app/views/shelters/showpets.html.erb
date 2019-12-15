@@ -1,5 +1,5 @@
 
-<h2><%= @shelter.name %></h2>
+<h2><%= link_to @shelter.name, "/shelters/#{@shelter.id}" %></h2>
 <br>
 <%= link_to 'Add Adoptable Pet to this Shelter', "/shelters/#{@shelter.id}/pets/new" %>
 <br><br>
