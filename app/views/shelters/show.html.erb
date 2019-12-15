@@ -10,11 +10,14 @@
 <% end %>
 <br>
 <%= link_to 'Pets at this shelter', "/shelters/#{@shelter.id}/pets" %>
+<br>
+<%= "Number of pets at this shelter: #{@shelter.number_applications}" %>
 <br><br><br>
 <h4 style='display: inline;'>Reviews</h4>
 <br>
 <% if @shelter.average_review_rating %>
-  <p><%= "Average review rating for this shelter: #{@shelter.average_review_rating.round(1)}" %></p>
+<br>
+  <p><%= "Average rating for this shelter: #{@shelter.average_review_rating.round(1)}" %></p>
 <% end %>
 <br><br>
 <%= link_to 'Add Review', "/shelters/#{@shelter.id}/reviews/new" %>
