@@ -10,4 +10,10 @@ class Pet < ApplicationRecord
                           .where('pet_applications.pet_id = ? and pet_applications.application_approved = true',id)
                           .pluck(:name)[0]
   end
+
+  def application_approved
+    PetApplication.select('applications.id, applications.name')
+                  .joins(:application)
+                  .where('pet_applications.pet_id = ? and pet_applications.application_approved = true',id)
+  end
 end
