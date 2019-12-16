@@ -24,7 +24,9 @@ Rails.application.routes.draw do
   patch '/pets/:id/pending', to: 'pets#topending'
   patch '/pets/:id/adoptable', to: 'pets#toadoptable'
   get '/pets/:id/applications', to: 'applications#pet_index'
+  # get '/pet_applications/:pet_id', to: 'pet_applications#index'
   get '/favorites/application', to: 'applications#new'
+  # get '/applications/new', to: 'applications#new'
   get '/favorites/:pet_id', to: 'favorites#add_favorite'
   delete '/favorites/all', to: 'favorites#destroy_all'
   delete '/favorites/:pet_id', to: 'favorites#destroy'
@@ -32,8 +34,11 @@ Rails.application.routes.draw do
   delete '/favorites/:pet_id/index', to: 'favorites#destroy_from_index'
   post '/applications', to: 'applications#create'
   get '/applications/:id', to: 'applications#show'
-  get '/applications/:app_id/approve/:pet_id', to: 'pets#approve_application'
-  get '/applications/:id/revoke', to: 'pets#revoke_application'
+
   get '/breeds', to: 'breeds#index'
   get '/breeds/:breed_name', to: 'breeds#show'
+
+  # get '/applications/:app_id/approve/:pet_id', to: 'pets#approve_application'
+  get '/applications/:app_id/pets/:pet_id', to: 'pet_applications#update'
+  get '/applications/pets/:pet_id/revoke', to: 'pet_applications#revoke'
 end

@@ -1,11 +1,11 @@
 
-<h2><%= @shelter_name %></h2>
+<h2><%= link_to @shelter.name, "/shelters/#{@shelter.id}" %></h2>
 <br>
-<%= link_to 'Add Adoptable Pet to this Shelter', "/shelters/#{@shelter_id}/pets/new" %>
+<%= link_to 'Add Adoptable Pet to this Shelter', "/shelters/#{@shelter.id}/pets/new" %>
 <br><br>
-<h6>Number of pets at this shelter: <%= @pet_count %></h6>
+<h6>Number of pets at this shelter: <%= @shelter.number_pets %></h6>
 <div class="grid">
-  <% @shelter_pets.each do |pet| %>
+  <% @shelter.pets.each do |pet| %>
     <div class="grid_item">
       <h4><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h4>
       <img src="<%= pet.image %>" class="grid_img"><br>

@@ -7,6 +7,10 @@ class SheltersController < ApplicationController
     @shelter = Shelter.find(params[:id])
   end
 
+  def showpets
+    @shelter = Shelter.find(params[:id])
+  end
+
   def create
     new_shelter = Shelter.create(shelter_params)
     if new_shelter.save
@@ -54,13 +58,6 @@ class SheltersController < ApplicationController
     end
 
     redirect_to '/shelters'
-  end
-
-  def showpets
-    @shelter_pets = Pet.where("shelter_id = ?", params[:id]).order(breed: :asc, name: :asc)
-    @pet_count = @shelter_pets.count
-    @shelter_name = Shelter.find(params[:id]).name
-    @shelter_id = params[:id]
   end
 
   private

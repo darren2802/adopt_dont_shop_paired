@@ -1,9 +1,11 @@
-<br>
-<table class="table">
-  <th>Breeds</th><th>Number of Pets</th>
-  <% @breeds_pluralized.each do |breed| %>
-    <tr>
-      <td><%= link_to breed, "/breeds/#{breed.gsub(' ','_').downcase}" %></td>
-    </tr>
+<div class="grid_thumbnail">
+  <% @breeds.each do |breed| %>
+    <div class="grid_thumbnail_item">
+      <h6><%= link_to breed.breed.pluralize(2), "/breeds/#{breed.breed.pluralize(2).gsub(' ','_').downcase}" %></h6>
+      <br>
+      <img src="<%= breed.image %>" class="grid_thumbnail_img">
+      <br><br>
+      <%= breed.nr_pets %> pets
+    </div>
   <% end %>
-</table>
+</div>

@@ -36,3 +36,22 @@
 .tab-space {
   padding-left: 4em;
 }
+
+.grid_thumbnail {
+  display: grid;
+  padding: 4em;
+  position: relative;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.grid_thumbnail_item {
+  background-color: WhiteSmoke;
+  padding: 1.5em;
+  color: Black;
+  border: 5px solid #fff;
+  width: 220px;
+}
+
+.grid_thumbnail_img {
+  width: 150px;
+}

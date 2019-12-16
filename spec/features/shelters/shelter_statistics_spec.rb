@@ -47,7 +47,7 @@ RSpec.describe 'Shelter Pet Count', type: :feature do
     click_on 'Add Review'
 
     visit "/shelters/#{@shelter_1.id}"
-    expect(page).to have_content("Average review rating for this shelter: 4.0")
+    expect(page).to have_content("Average rating for this shelter: 4.0")
   end
 
   it 'displays the number of applications on file for pets of this shelter' do
