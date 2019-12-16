@@ -23,8 +23,8 @@ Number of <%= link_to 'pets at this shelter', "/shelters/#{@shelter.id}/pets" %>
 <% end %>
 <br>
 <%= link_to 'Add Review', "/shelters/#{@shelter.id}/reviews/new",  :style => 'display: inline;' %>
-<%= link_to 'Sort by Highest Rating then Date Descending', "/reviews/#{@shelter.id}/sort_1", :class => 'tab-space' %>
-<%= link_to 'Sort by Lowest Rating then Date Ascending', "/reviews/#{@shelter.id}/sort_2", :class => 'tab-space' %>
+<!-- < %= link_to 'Sort by Highest Rating then Date Descending', "/reviews/#{@shelter.id}/sort_1", :class => 'tab-space' %> -->
+<!-- < %= link_to 'Sort by Lowest Rating then Date Ascending', "/reviews/#{@shelter.id}/sort_2", :class => 'tab-space' %> -->
 <hr>
 <div class="grid">
   <% @shelter.reviews.each do |review| %>
