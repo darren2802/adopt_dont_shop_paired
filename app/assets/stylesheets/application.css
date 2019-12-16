@@ -37,14 +37,14 @@
   padding-left: 4em;
 }
 
-.grid_breed {
+.grid_thumbnail {
   display: grid;
   padding: 4em;
   position: relative;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
-.grid_breed_item {
+.grid_thumbnail_item {
   background-color: WhiteSmoke;
   padding: 1.5em;
   color: Black;
@@ -52,6 +52,6 @@
   width: 220px;
 }
 
-.grid_breed_img {
+.grid_thumbnail_img {
   width: 150px;
 }

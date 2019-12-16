@@ -6,41 +6,41 @@ class FavoritesController < ApplicationController
     @pets_approved = @favorite.approved
   end
 
-   def add_favorite
-     pet_name = Pet.find(params[:pet_id]).name
-     pet_id_str = params[:pet_id].to_s
+  def add_favorite
+   pet_name = Pet.find(params[:pet_id]).name
+   pet_id_str = params[:pet_id].to_s
 
-     @favorite = Favorite.new(session[:favorite])
-     @favorite.add_pet(pet_id_str)
-     session[:favorite] = @favorite.contents
+   @favorite = Favorite.new(session[:favorite])
+   @favorite.add_pet(pet_id_str)
+   session[:favorite] = @favorite.contents
 
-     flash[:notice] = "#{pet_name} has been added to Favorites"
-     redirect_to "/pets/#{params[:pet_id]}"
-   end
+   flash[:notice] = "#{pet_name} has been added to Favorites"
+   redirect_to "/pets/#{params[:pet_id]}"
+  end
 
-   def destroy
-     pet_name = Pet.find(params[:pet_id]).name
-     pet_id_str = params[:pet_id].to_s
-     @favorite = Favorite.new(session[:favorite])
-     @favorite.delete_pet(pet_id_str)
+  def destroy
+   pet_name = Pet.find(params[:pet_id]).name
+   pet_id_str = params[:pet_id].to_s
+   @favorite = Favorite.new(session[:favorite])
+   @favorite.delete_pet(pet_id_str)
 
-     flash[:notice] = "#{pet_name} has been removed from Favorites"
-     redirect_to "/pets/#{params[:pet_id]}"
-   end
+   flash[:notice] = "#{pet_name} has been removed from Favorites"
+   redirect_to "/pets/#{params[:pet_id]}"
+  end
 
-   def destroy_from_index
-     pet_name = Pet.find(params[:pet_id]).name
-     pet_id_str = params[:pet_id].to_s
-     @favorite = Favorite.new(session[:favorite])
-     @favorite.delete_pet(pet_id_str)
+  def destroy_from_index
+   pet_name = Pet.find(params[:pet_id]).name
+   pet_id_str = params[:pet_id].to_s
+   @favorite = Favorite.new(session[:favorite])
+   @favorite.delete_pet(pet_id_str)
 
-     flash[:notice] = "#{pet_name} has been removed from Favorites"
-     redirect_to "/favorites"
-   end
+   flash[:notice] = "#{pet_name} has been removed from Favorites"
+   redirect_to "/favorites"
+  end
 
-   def destroy_all
-     @favorite = Favorite.new(session[:favorite])
-     @favorite.destroy_all
-     redirect_to "/favorites"
-   end
+  def destroy_all
+   @favorite = Favorite.new(session[:favorite])
+   @favorite.destroy_all
+   redirect_to "/favorites"
+  end
 end

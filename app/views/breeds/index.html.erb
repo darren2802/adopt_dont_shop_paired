@@ -1,9 +1,9 @@
-<div class="grid_breed">
+<div class="grid_thumbnail">
   <% @breeds.each do |breed| %>
-    <div class="grid_breed_item">
+    <div class="grid_thumbnail_item">
       <h6><%= link_to breed.breed.pluralize(2), "/breeds/#{breed.breed.pluralize(2).gsub(' ','_').downcase}" %></h6>
       <br>
-      <img src="<%= breed.image %>" class="grid_breed_img">
+      <img src="<%= breed.image %>" class="grid_thumbnail_img">
       <br><br>
       <%= breed.nr_pets %> pets
     </div>

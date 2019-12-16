@@ -52,7 +52,7 @@ class PetsController < ApplicationController
   def destroy
     @pet = Pet.find(params[:id])
     if PetApplication.where('pet_applications.application_approved = true and pet_applications.pet_id = ?', params[:id]).count > 0
-      flash.now[:notice] = 'Pet has approved application and cannot be deleted.'
+      flash.now[:notice] = "#{@pet.name} has an approved application and cannot be deleted."
       render :show
     else
       @pet.destroy

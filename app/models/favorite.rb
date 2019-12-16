@@ -41,13 +41,15 @@ class Favorite
     pet_ids = PetApplication.all.distinct.pluck(:pet_id)
     pet_applications = Hash.new()
     pet_ids.each do |pet_id|
-      pet_applications[pet_id] = Pet.find(pet_id).name
+      pet_applications[pet_id] = Hash.new()
+      pet_applications[pet_id][:name] = Pet.find(pet_id).name
+      pet_applications[pet_id][:image] = Pet.find(pet_id).image
     end
     pet_applications
   end
 
   def approved
-    PetApplication.select('pets.id, pets.name')
+    PetApplication.select('pets.id, pets.name, pets.image')
         .joins(:pet)
         .where('pet_applications.application_approved = true')
   end
